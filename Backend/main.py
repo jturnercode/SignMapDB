@@ -3,11 +3,28 @@ from fastapi import FastAPI, Depends, Form, Request
 from database import SessionLocal, engine
 import models, schemas
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 # TODO: ADD BETTER HTTP EXCEPTIONS VIA FASTAPI HANDLERS
 
 # Instance of app
 app = FastAPI()
+
+# TODO: how does this affect deployment if frontend and backend on same server
+# read: https://fastapi.tiangolo.com/tutorial/cors/?h=cors
+# Add allowed frontend origin to meet CORS Policy
+origins = [
+    # Frontend origin
+    "http://127.0.0.1:5500"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 models.Base.metadata.create_all(bind=engine)
