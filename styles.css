@@ -1,10 +1,7 @@
-
-
-
 /* Always set the map height explicitly to define the size of the div
    * element that contains the map. */
 #map {
-    /* div is a block element so width not need to be specified */
+  /* div is a block element so width not need to be specified */
   height: 100%;
 }
 
@@ -14,4 +11,30 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+div.custom-cm {
+  background-color: white;
+  border: 1px solid gray;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  width: 200px;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div.cm-item {
+  cursor: pointer;
+  padding: 8px 15px;
+}
+
+div.cm-item:hover {
+  background-color: red;
+}
+
+div.cm-divider {
+  border-bottom: 1px solid #eeeeee;
+  margin: 10px 0;
 }
