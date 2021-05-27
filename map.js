@@ -15,7 +15,6 @@ function initMap() {
       // const infoWindow = new google.maps.InfoWindow();
       supports.forEach((support) => {
         let latlong = support["lat_lng"].split(",");
-        console.log(new google.maps.LatLng(latlong[0], latlong[1]));
 
         var marker = new google.maps.Marker({
           // The google LatLng class helps create geopoint from string rather than passing floats from json data
@@ -24,12 +23,23 @@ function initMap() {
           title: toString(support.id),
         });
 
+        const contentstring =
+          "<p>Marker Location:" +
+          marker.getPosition() +
+          ", " +
+          support.sign_code +
+          "</p>";
+
         const infowindow = new google.maps.InfoWindow({
-          content: "<p>Marker Location:" + marker.getPosition() + "</p>",
+          content: contentstring,
         });
 
-        google.maps.event.addListener(marker, "click", () => {
+        marker.addListener("click", () => {
           infowindow.open(map, marker);
+        });
+
+        map.addListener("click", () => {
+          infowindow.close();
         });
       });
     });
@@ -50,7 +60,7 @@ function placeMarkerAndPanTo(latLng, map) {
 function support_add() {
   alert("Support Added");
 
-  await fetch("http://127.0.0.1:8000/get_allsigns")
+  fetch("http://127.0.0.1:8000/get_allsigns")
     .then((res) => res.json())
     .then((data) => console.log(data));
 }
