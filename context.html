@@ -5,19 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Bulma Css -->
+    <link rel="stylesheet" href="css/bulma.min.css" />
 
     <!-- JS for Map & Markers -->
-    <script src="map.js"></script>
+    <script src="js/map.js"></script>
 
     <title>Context menu</title>
   </head>
   <body>
     <h1>Context Menu - Javascript</h1>
-    <div class="custom-cm">
+    <div class="box custom-cm" style="width: 200px; color: blue">
       <div class="cm-item">Edit Sign Assembly</div>
       <div class="cm-item" onclick="support_add()">Add Sign Support</div>
-      <div class="cm-item">Delete Sign Support</div>
+      <div class="block">
+        <div class="cm-item">Delete Sign Support</div>
+      </div>
       <div class="cm-divider"></div>
       <div class="cm-item">Cancel</div>
     </div>

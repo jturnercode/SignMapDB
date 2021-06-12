@@ -14,11 +14,22 @@ body {
 }
 
 div.custom-cm {
-  background-color: white;
-  border: 1px solid gray;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+  background-color: lightgray;
+  /* border: 1px solid gray; */
+  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1); */
+  /**=======================
+   * ?      why does padding affect text spacing to one line? how do i do this in bulma
+   *  
+   *  
+   *========================**/
   padding: 10px 0;
-  width: 200px;
+  /* width: 200px; */
+
+  /**=======================
+   * ?      how do i control display, top, botton in bulma?
+   *  
+   *  
+   *========================**/
   display: none;
   position: absolute;
   top: 0;
