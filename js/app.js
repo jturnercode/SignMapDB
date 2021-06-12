@@ -19,15 +19,20 @@ function focus() {
   document.getElementById("searchbox").focus();
 }
 
-function showmodal() {
-  mod = document.getElementById("modal1");
+function showmodal(modalid) {
+  mod = document.getElementById(modalid);
   mod.classList.add("is-active");
 
   focus();
 }
 
-function closemodal() {
-  mod = document.getElementById("modal1");
+/**================================================================================================
+ **                                    closemodal()
+ *?  close bulma modal by changing removing is-active class
+ *@param modalid: html id given to modal
+ *================================================================================================**/
+function closemodal(modalid) {
+  mod = document.getElementById(modalid);
   mod.classList.remove("is-active");
 }
 
@@ -106,7 +111,7 @@ window.onload = function () {
   // ADD CLICK EVENT LISTENER TO LISTEN CLASS
   document.querySelectorAll(".closemodal").forEach((item) => {
     item.addEventListener("click", (event) => {
-      closemodal();
+      closemodal("modal1");
     });
   });
 };

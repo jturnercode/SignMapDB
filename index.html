@@ -25,20 +25,24 @@
     <script src="js/app.js"></script>
   </head>
 
-  <!-- --------------------------- Body ----------------------------- -->
+  <!--================= Body ================-->
   <body>
-    <!-- Nav Bar -->
+    <!--=============================== NAV BAR =============================-->
     <nav class="navbar is-link">
       <div class="navbar-brand">
         <h1 class="navbar-item">SignMapDB</h1>
-        <a class="navbar-item" id="modalbtn" onclick="showmodal()"> Modal </a>
+        <a class="navbar-item" id="modalbtn" onclick="showmodal('modal1')">
+          Modal
+        </a>
       </div>
     </nav>
 
-    <!-- Map Div -->
+    <!--=============================== CONTEXT MENU =============================-->
+
+    <!--============================== MAP DIV =============================-->
     <div id="map"></div>
 
-    <!-- Modal Div -->
+    <!--=============================== Modal1 =============================-->
     <div class="modal" id="modal1">
       <div class="modal-background closemodal"></div>
       <div class="modal-card">
@@ -83,7 +87,11 @@
         class="modal-close is-large closemodal"
         aria-label="close"
       ></button>
+
+      <!--============== END OF MODAL =============-->
     </div>
+
+    <!--=============================== SCRIPTS =============================-->
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script id="gmapi" async></script>
@@ -97,5 +105,7 @@
         MAP_API +
         "&callback=initMap&v=weekly";
     </script>
+
+    <!--=========================== END OF BODY ===========================-->
   </body>
 </html>
