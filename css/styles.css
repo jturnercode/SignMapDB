@@ -1,5 +1,5 @@
 /* Always set the map height explicitly to define the size of the div
-   * element that contains the map. */
+   *element that contains the map. */
 #map {
   /* div is a block element so width not need to be specified */
   height: 100%;
@@ -14,26 +14,12 @@ body {
 }
 
 div.custom-cm {
-  background-color: lightgray;
-  /* border: 1px solid gray; */
-  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1); */
-  /**=======================
-   * ?      why does padding affect text spacing to one line? how do i do this in bulma
-   *  
-   *  
-   *========================**/
-  padding: 10px 0;
-  /* width: 200px; */
-
-  /**=======================
-   * ?      how do i control display, top, botton in bulma?
-   *  
-   *  
-   *========================**/
+  /* 10px top/bottom 0px left/right padding */
+  padding: 10px 0px;
+  width: 175px;
+  color: blue;
   display: none;
   position: absolute;
-  top: 0;
-  left: 0;
 }
 
 div.cm-item {
@@ -42,7 +28,7 @@ div.cm-item {
 }
 
 div.cm-item:hover {
-  background-color: red;
+  background-color: grey;
 }
 
 div.cm-divider {

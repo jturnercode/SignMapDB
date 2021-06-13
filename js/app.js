@@ -26,16 +26,6 @@ function showmodal(modalid) {
   focus();
 }
 
-/**================================================================================================
- **                                    closemodal()
- *?  close bulma modal by changing removing is-active class
- *@param modalid: html id given to modal
- *================================================================================================**/
-function closemodal(modalid) {
-  mod = document.getElementById(modalid);
-  mod.classList.remove("is-active");
-}
-
 // POPULATE A SELECT BOX VIA MODAL
 // function addoption(opt_value) {
 //   let msel = document.getElementById("s2");
@@ -104,14 +94,71 @@ function filterFunction() {
 //   });
 // };
 
-// ADD EVENT LISTENERS ONLOAD
-// **window.onload with anonymous func is needed to add
-// event listensers to html file via external .js file
-window.onload = function () {
-  // ADD CLICK EVENT LISTENER TO LISTEN CLASS
+/**========================================================================
+ **                           closemodal()
+ *?  Closes modals with class name modal1
+ *========================================================================**/
+
+function closemodal() {
+  // ADD CLICK EVENT LISTENER TO 'closemodal' CLASS
   document.querySelectorAll(".closemodal").forEach((item) => {
     item.addEventListener("click", (event) => {
-      closemodal("modal1");
+      // perform this code if click on element with class 'closemodal'
+      mod = document.getElementById("modal1");
+      mod.classList.remove("is-active");
     });
   });
+}
+
+/**========================================================================
+ **                           show_cmenu()
+ *?  show context menu on right click
+ *========================================================================**/
+function show_cmenu() {
+  window.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+
+    const cm = document.querySelector(".custom-cm");
+    cm.style.display = "block";
+
+    console.log(e);
+
+    // Template literal
+    // alert(`${e.y}, ${e.x}`);
+
+    cm.style.top =
+      e.y + cm.offsetHeight > window.innerHeight
+        ? window.innerHeight - cm.offsetHeight
+        : e.y + "px";
+    cm.style.left =
+      e.x + cm.offsetWidth > window.innerWidth
+        ? window.innerWidth - cm.offsetWidth
+        : e.x + "px";
+    console.log(cm);
+  });
+}
+
+/**========================================================================
+ **                           show_cmenu()
+ *?  show context menu on right click
+ *========================================================================**/
+function close_cmenu() {
+  window.addEventListener("click", () => {
+    const cm = document.querySelector(".custom-cm");
+    cm.style.display = "none";
+  });
+}
+
+/**========================================================================
+ *                             Window.onload
+ *
+ * ADD EVENT LISTENERS ONLOAD
+ *  window.onload with anonymous function is needed to add
+ *  event listensers to html file via external .js file
+ *========================================================================**/
+
+window.onload = function () {
+  show_cmenu();
+  closemodal();
+  close_cmenu();
 };
