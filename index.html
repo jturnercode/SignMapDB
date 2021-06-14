@@ -48,11 +48,15 @@
       <div class="cm-item">Cancel</div>
     </div>
 
-    <!--=============================== Modal1 =============================-->
+    <!--=============================== TEST Modal1 =============================-->
     <div class="modal" id="modal1">
       <div class="modal-background closemodal"></div>
       <div class="modal-card">
-        <!--  -->
+        <!-- Modal Header -->
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal Test</p>
+          <button class="delete closemodal" aria-label="close"></button>
+        </header>
 
         <!-- Modal Body -->
         <section class="modal-card-body">
@@ -89,23 +93,40 @@
           </div>
         </section>
       </div>
-      <button
-        class="modal-close is-large closemodal"
-        aria-label="close"
-      ></button>
 
       <!--============== END OF MODAL =============-->
     </div>
 
-    <!--=============================== SCRIPTS =============================-->
+    <!--=============================== ADD SUPPORT FORM =============================-->
+
+    <article class="panel is-info is-hidden addpanel" style="width: 400px">
+      <p class="panel-heading">New Support & Signs</p>
+      <p class="panel-tabs">
+        <a class="is-active">Support </a>
+        <a>Signs</a>
+      </p>
+
+      <!-- Add form fields here -->
+      <div class="panel-block">
+        <div class="field">
+          <label class="label">Lat & Long</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="latlng" />
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!--=============================== JS SCRIPTS =============================-->
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script id="gmapi" async></script>
 
-    <!-- IMPORT MAP API KEY, SET SRC FOR GMAPI SCRIPT, & INIT MAP -->
+    <!-- IMPORT MAP API KEY, SET SRC FOR GMAPI SCRIPT Tag, & INIT MAP -->
     <script type="module">
+      // import was done to protect my api key from local network
       import { MAP_API } from "./js/env.js";
-      // console.log(MAP_API);
+      // Select gmapi script tag and set src info
       document.getElementById("gmapi").src =
         "https://maps.googleapis.com/maps/api/js?key=" +
         MAP_API +

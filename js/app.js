@@ -158,7 +158,7 @@ function close_cmenu() {
  *========================================================================**/
 
 window.onload = function () {
-  show_cmenu();
+  // show_cmenu();
   closemodal();
   close_cmenu();
 };
