@@ -56,24 +56,22 @@ function initMap() {
     // SHOW CONTEXT MENU
     show_cmenu();
 
-    // add event listener to show add sign modal
-    // TODO: WRITE THIS SPECIFIC FOR ADD SUPPORT RATHER THAN LOOKING FOR ALL .ADDSIGN CLASSES, ONLY ONE?
-    document.querySelectorAll(".addsign").forEach((item) => {
-      item.addEventListener("click", (event) => {
-        // ACTIVATE ADD SUPPORT MODAL
-        mod = document.getElementById("addmodal");
-        mod.classList.add("is-active");
+    // SELECT ADD SUPPORT FROM CMENU & SHOW MODAL FORM
+    item = document.querySelector("#addsup_item");
+    item.addEventListener("click", (event) => {
+      // ACTIVATE ADD SUPPORT MODAL
+      mod = document.getElementById("addsup_modal");
+      mod.classList.add("is-active");
 
-        // CLEAR FORM OF ANY PREVIOUS DATA
-        document.getElementById("addsup_form").reset();
+      // CLEAR FORM OF ANY PREVIOUS DATA
+      document.getElementById("addsup_form").reset();
 
-        // INSERT LAT&lONG INTO TEXT BOX
-        latlng_json = e.latLng.toJSON();
-        lltext = document.getElementById("latlng");
-        lltext.value = `${latlng_json["lat"].toFixed(7)}, ${latlng_json[
-          "lng"
-        ].toFixed(7)}`;
-      });
+      // INSERT LAT&lONG INTO TEXT BOX
+      latlng_json = e.latLng.toJSON();
+      lltext = document.getElementById("latlng");
+      lltext.value = `${latlng_json["lat"].toFixed(7)}, ${latlng_json[
+        "lng"
+      ].toFixed(7)}`;
     });
   });
 
@@ -99,9 +97,6 @@ function support_add() {
   //   .then((res) => res.json())
   //   .then((data) => console.log(data));
 }
-
-// https://stackoverflow.com/questions/7168394/google-map-v3-context-menu/10957262
-// TODO: SEE ABOVE TO IMPLEMENT CONTExT MENU INTO MAP
 
 /**========================================================================
  **                           show_cmenu()

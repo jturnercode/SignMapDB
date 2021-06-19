@@ -169,6 +169,6 @@ function close_cmenu() {
 
 window.onload = function () {
   // show_cmenu();
-  closemodal("addmodal");
+  closemodal("addsup_modal");
   close_cmenu();
 };
