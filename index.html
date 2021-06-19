@@ -12,14 +12,14 @@
     <!-- Bulma Css -->
     <link rel="stylesheet" href="css/bulma.min.css" />
 
+    <!-- JS for Map & Markers -->
+    <script src="js/map.js"></script>
+
     <!-- Bootstrap Icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
-
-    <!-- JS for Map & Markers -->
-    <script src="js/map.js"></script>
 
     <!-- JS for Modal, Other -->
     <script src="js/app.js"></script>
@@ -38,14 +38,81 @@
     </nav>
 
     <!--============================== MAP DIV =============================-->
+    <!-- TODO: how do i fix spacing issues between nav bar and map div; ie remove the scroll bar on right side -->
+
     <div id="map"></div>
 
     <!--=============================== CONTEXT MENU =============================-->
 
     <div class="box custom-cm">
-      <div class="cm-item" onclick="support_add()">Add Sign Support</div>
+      <!-- <div class="cm-item" onclick="showmodal('addsup')">Add Sign Support</div> -->
+      <div class="cm-item addsign" id="addsign">Add Sign Support</div>
       <div class="cm-divider"></div>
       <div class="cm-item">Cancel</div>
+    </div>
+
+    <!--=============================== ADD SUPPORT/SIGNS MODAL =============================-->
+
+    <div class="modal" id="addmodal">
+      <div class="modal-background"></div>
+      <div class="modal-card" style="width: 75%">
+        <header class="modal-card-head">
+          <!-- <p class="modal-card-title">Modal title</p> -->
+          <!-- TODO: Add js to switch between panels -->
+          <p class="panel-tabs">
+            <a class="is-active">Support </a>
+            <a>Signs</a>
+          </p>
+        </header>
+
+        <section class="modal-card-body">
+          <!-- Content ... -->
+          <!-- <div class="panel-block"> -->
+          <div class="field">
+            <label class="label" for="latlng">Lat & Long</label>
+            <div class="control">
+              <input
+                class="input"
+                id="latlng"
+                type="text"
+                placeholder="latlng"
+                disabled
+              />
+            </div>
+          </div>
+          <!-- </div> -->
+
+          <!-- support type -->
+          <div class="field">
+            <label class="label">Support Type</label>
+            <div class="control">
+              <div class="select">
+                <select>
+                  <option></option>
+                  <option>Standard Pole</option>
+                  <option>Light Pole</option>
+                  <option>Traffic Pole</option>
+                  <option>Breakaway</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="field">
+            <label class="label" for="install">Install Date</label>
+            <div class="control">
+              <input class="input" type="date" id="install" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button closemodal">Cancel</button>
+        </footer>
+      </div>
     </div>
 
     <!--=============================== TEST Modal1 =============================-->
@@ -54,7 +121,7 @@
       <div class="modal-card">
         <!-- Modal Header -->
         <header class="modal-card-head">
-          <p class="modal-card-title">Modal Test</p>
+          <p class="modal-card-title">Sign Codes Test</p>
           <button class="delete closemodal" aria-label="close"></button>
         </header>
 
@@ -63,7 +130,7 @@
           <!-- Panel -->
           <div class="panel" id="modalpanel">
             <!-- Panel Heading -->
-            <p class="panel-heading">Sign Codes</p>
+            <!-- <p class="panel-heading">Sign Codes</p> -->
 
             <!-- Search Box -->
             <div class="panel-block">
@@ -82,7 +149,6 @@
             <a class="panel-block">R2-1</a>
             <a class="panel-block">
               <span class="panel-icon">
-                <!-- <i class="fas fa-book" aria-hidden="true"></i> -->
                 <i
                   class="bi-signpost"
                   style="font-size: 1rem; color: cornflowerblue"
@@ -93,29 +159,7 @@
           </div>
         </section>
       </div>
-
-      <!--============== END OF MODAL =============-->
     </div>
-
-    <!--=============================== ADD SUPPORT FORM =============================-->
-
-    <article class="panel is-info is-hidden addpanel" style="width: 400px">
-      <p class="panel-heading">New Support & Signs</p>
-      <p class="panel-tabs">
-        <a class="is-active">Support </a>
-        <a>Signs</a>
-      </p>
-
-      <!-- Add form fields here -->
-      <div class="panel-block">
-        <div class="field">
-          <label class="label">Lat & Long</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="latlng" />
-          </div>
-        </div>
-      </div>
-    </article>
 
     <!--=============================== JS SCRIPTS =============================-->
 

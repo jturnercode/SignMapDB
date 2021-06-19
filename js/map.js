@@ -51,12 +51,28 @@ function initMap() {
   /**========================================================================
    *                             Context Menu Code
    *
-   *
-   *
    *========================================================================**/
   map.addListener("contextmenu", (e) => {
-    console.log(e.latLng.toJSON());
+    // SHOW CONTEXT MENU
     show_cmenu();
+
+    // TODO: Clear form everytime it is called; blank support and date
+    // add event listener to show add sign modal
+    // TODO: WRITE THIS SPECIFIC FOR ADD SUPPORT RATHER THAN LOOKING FOR ALL .ADDSIGN CLASSES, ONLY ONE?
+    document.querySelectorAll(".addsign").forEach((item) => {
+      item.addEventListener("click", (event) => {
+        // ACTIVATE ADD SUPPORT MODAL
+        mod = document.getElementById("addmodal");
+        mod.classList.add("is-active");
+
+        // INSERT LAT&lONG INTO TEXT BOX
+        latlng_json = e.latLng.toJSON();
+        lltext = document.getElementById("latlng");
+        lltext.value = `${latlng_json["lat"].toFixed(7)}, ${latlng_json[
+          "lng"
+        ].toFixed(7)}`;
+      });
+    });
   });
 
   /*==== END OF initMap() ====*/
@@ -106,19 +122,25 @@ function show_cmenu() {
 
 /**========================================================================
  **                           show_addsup()
- *?  show panel to add support
+ *?  show modal to add support
  *========================================================================**/
 function show_addsup() {
-  const ap = document.querySelector(".addpanel");
-  ap.classList.remove("is-hidden");
+  const ap = document.querySelector("#addmodal");
+
+  ap.style.display = "block";
+
+  console.log(ap);
+
+  // TODO: How do i pass the window coordinates so panel pops up above new marker; modal??
+  //  do i just center
 
   // keep dm from edge of screen
-  // cm.style.top =
-  //   e.y + cm.offsetHeight > window.innerHeight
-  //     ? window.innerHeight - cm.offsetHeight
-  //     : e.y + "px";
-  // cm.style.left =
-  //   e.x + cm.offsetWidth > window.innerWidth
-  //     ? window.innerWidth - cm.offsetWidth
-  //     : e.x + "px";
+  ap.style.top =
+    e.y + ap.offsetHeight > window.innerHeight
+      ? window.innerHeight - cm.offsetHeight
+      : e.y + "px";
+  ap.style.left =
+    e.x + ap.offsetWidth > window.innerWidth
+      ? window.innerWidth - cm.offsetWidth
+      : e.x + "px";
 }

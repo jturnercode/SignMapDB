@@ -15,17 +15,6 @@ function hide_el() {
   }
 }
 
-function focus() {
-  document.getElementById("searchbox").focus();
-}
-
-function showmodal(modalid) {
-  mod = document.getElementById(modalid);
-  mod.classList.add("is-active");
-
-  focus();
-}
-
 // POPULATE A SELECT BOX VIA MODAL
 // function addoption(opt_value) {
 //   let msel = document.getElementById("s2");
@@ -55,6 +44,11 @@ function showmodal(modalid) {
 //   let mod = document.getElementById("modal1");
 //   M.Modal.getInstance(mod).close();
 // }
+
+/**========================================================================
+ **                           filterfunction()
+ *?  Filter modal panel via text search box
+ *========================================================================**/
 
 // FILTER SEARCH TEXT BOX
 function filterFunction() {
@@ -95,16 +89,32 @@ function filterFunction() {
 // };
 
 /**========================================================================
+ **                           showmodal()
+ *?  Closes modals with class name modal1
+ *========================================================================**/
+
+function focus() {
+  document.getElementById("searchbox").focus();
+}
+
+function showmodal(modalid) {
+  mod = document.getElementById(modalid);
+  mod.classList.add("is-active");
+
+  focus();
+}
+
+/**========================================================================
  **                           closemodal()
  *?  Closes modals with class name modal1
  *========================================================================**/
 
-function closemodal() {
+function closemodal(modalid) {
   // ADD CLICK EVENT LISTENER TO 'closemodal' CLASS
   document.querySelectorAll(".closemodal").forEach((item) => {
     item.addEventListener("click", (event) => {
       // perform this code if click on element with class 'closemodal'
-      mod = document.getElementById("modal1");
+      mod = document.getElementById(modalid);
       mod.classList.remove("is-active");
     });
   });
@@ -139,8 +149,8 @@ function show_cmenu() {
 }
 
 /**========================================================================
- **                           show_cmenu()
- *?  show context menu on right click
+ **                           close_cmenu()
+ *?  close context menu on click
  *========================================================================**/
 function close_cmenu() {
   window.addEventListener("click", () => {
@@ -159,6 +169,6 @@ function close_cmenu() {
 
 window.onload = function () {
   // show_cmenu();
-  closemodal();
+  closemodal("addmodal");
   close_cmenu();
 };

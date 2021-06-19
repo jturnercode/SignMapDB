@@ -2,7 +2,7 @@
    *element that contains the map. */
 #map {
   /* div is a block element so width not need to be specified */
-  height: 100%;
+  height: 94%;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -34,4 +34,14 @@ div.cm-item:hover {
 div.cm-divider {
   border-bottom: 1px solid #eeeeee;
   margin: 10px 0;
+}
+
+.addpanel {
+  /* padding: 10px 0px; */
+  width: 300px;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
