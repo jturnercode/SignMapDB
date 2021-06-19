@@ -56,7 +56,6 @@ function initMap() {
     // SHOW CONTEXT MENU
     show_cmenu();
 
-    // TODO: Clear form everytime it is called; blank support and date
     // add event listener to show add sign modal
     // TODO: WRITE THIS SPECIFIC FOR ADD SUPPORT RATHER THAN LOOKING FOR ALL .ADDSIGN CLASSES, ONLY ONE?
     document.querySelectorAll(".addsign").forEach((item) => {
@@ -64,6 +63,9 @@ function initMap() {
         // ACTIVATE ADD SUPPORT MODAL
         mod = document.getElementById("addmodal");
         mod.classList.add("is-active");
+
+        // CLEAR FORM OF ANY PREVIOUS DATA
+        document.getElementById("addsup_form").reset();
 
         // INSERT LAT&lONG INTO TEXT BOX
         latlng_json = e.latLng.toJSON();

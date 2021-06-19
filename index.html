@@ -68,43 +68,46 @@
         <section class="modal-card-body">
           <!-- Content ... -->
           <!-- <div class="panel-block"> -->
-          <div class="field">
-            <label class="label" for="latlng">Lat & Long</label>
-            <div class="control">
-              <input
-                class="input"
-                id="latlng"
-                type="text"
-                placeholder="latlng"
-                disabled
-              />
-            </div>
-          </div>
-          <!-- </div> -->
 
-          <!-- support type -->
-          <div class="field">
-            <label class="label">Support Type</label>
-            <div class="control">
-              <div class="select">
-                <select>
-                  <option></option>
-                  <option>Standard Pole</option>
-                  <option>Light Pole</option>
-                  <option>Traffic Pole</option>
-                  <option>Breakaway</option>
-                </select>
+          <form id="addsup_form">
+            <div class="field">
+              <label class="label" for="latlng">Lat & Long</label>
+              <div class="control">
+                <input
+                  class="input"
+                  id="latlng"
+                  type="text"
+                  placeholder="latlng"
+                  disabled
+                />
               </div>
             </div>
-          </div>
+            <!-- </div> -->
 
-          <!-- Date -->
-          <div class="field">
-            <label class="label" for="install">Install Date</label>
-            <div class="control">
-              <input class="input" type="date" id="install" />
+            <!-- support type -->
+            <div class="field">
+              <label class="label">Support Type</label>
+              <div class="control">
+                <div class="select">
+                  <select>
+                    <option></option>
+                    <option>Standard Pole</option>
+                    <option>Light Pole</option>
+                    <option>Traffic Pole</option>
+                    <option>Breakaway</option>
+                  </select>
+                </div>
+              </div>
             </div>
-          </div>
+
+            <!-- Date -->
+            <div class="field">
+              <label class="label" for="install">Install Date</label>
+              <div class="control">
+                <input class="input" type="date" id="install" />
+              </div>
+            </div>
+          </form>
         </section>
 
         <!-- Footer -->
