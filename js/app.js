@@ -170,5 +170,6 @@ function close_cmenu() {
 window.onload = function () {
   // show_cmenu();
   closemodal("addsup_modal");
+  closemodal("modal1");
   close_cmenu();
 };

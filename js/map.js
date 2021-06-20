@@ -118,26 +118,28 @@ function show_cmenu() {
 }
 
 /**========================================================================
- **                           show_addsup()
- *?  show modal to add support
+ **                           addsup_form()
+ *?  process form controls for add support modal form
  *========================================================================**/
-function show_addsup() {
-  const ap = document.querySelector("#addmodal");
 
-  ap.style.display = "block";
+//  TODO: see code here
+// https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_form_steps
 
-  console.log(ap);
-
-  // TODO: How do i pass the window coordinates so panel pops up above new marker; modal??
-  //  do i just center
-
-  // keep dm from edge of screen
-  ap.style.top =
-    e.y + ap.offsetHeight > window.innerHeight
-      ? window.innerHeight - cm.offsetHeight
-      : e.y + "px";
-  ap.style.left =
-    e.x + ap.offsetWidth > window.innerWidth
-      ? window.innerWidth - cm.offsetWidth
-      : e.x + "px";
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == x.length - 1) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n);
 }

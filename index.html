@@ -45,7 +45,6 @@
     <!--=============================== CONTEXT MENU =============================-->
 
     <div class="box custom-cm">
-      <!-- <div class="cm-item" onclick="showmodal('addsup')">Add Sign Support</div> -->
       <div class="cm-item" id="addsup_item">Add Sign Support</div>
       <div class="cm-divider"></div>
       <div class="cm-item">Cancel</div>
@@ -56,35 +55,42 @@
     <div class="modal" id="addsup_modal">
       <div class="modal-background"></div>
       <div class="modal-card" style="width: 75%">
-        <header class="modal-card-head">
+        <!-- TODO Fix modal header not allowing fullwidth for tabs -->
+        <!-- <header class="modal-card-head"> -->
+        <header>
           <!-- <p class="modal-card-title">Modal title</p> -->
-          <!-- TODO: Add js to switch between panels -->
-          <p class="panel-tabs">
-            <a class="is-active">Support </a>
-            <a>Signs</a>
-          </p>
+
+          <!-- TODO: Add js to switch between Tabs -->
+
+          <nav
+            class="tabs is-boxed is-fullwidth"
+            style="background-color: dimgray"
+          >
+            <ul>
+              <li class="is-active">
+                <a>
+                  <span>Supports</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span>Signs</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </header>
 
         <section class="modal-card-body">
           <!-- Content ... -->
+
+          <!-- TODO: if needed use TABS versus panel? -->
           <!-- <div class="panel-block"> -->
+          <!-- </div> -->
 
           <form id="addsup_form">
-            <div class="field">
-              <label class="label" for="latlng">Lat & Long</label>
-              <div class="control">
-                <input
-                  class="input"
-                  id="latlng"
-                  type="text"
-                  placeholder="latlng"
-                  disabled
-                />
-              </div>
-            </div>
-            <!-- </div> -->
-
             <!-- support type -->
+            <!-- TODO: Get options from DB? -->
             <div class="field">
               <label class="label">Support Type</label>
               <div class="control">
@@ -107,13 +113,126 @@
                 <input class="input" type="date" id="install" />
               </div>
             </div>
+
+            <div class="field">
+              <label class="label" for="latlng">Lat & Long</label>
+              <div class="control">
+                <input
+                  class="input"
+                  id="latlng"
+                  type="text"
+                  placeholder="latlng"
+                  disabled
+                />
+              </div>
+            </div>
+
+            <!-- end of support form -->
+          </form>
+
+          <!--================= SIGN TABLE ================-->
+
+          <table class="table is-narrow is-hoverable is-border is-fullwidth">
+            <thead>
+              <tr>
+                <th>Sign Code</th>
+                <th>Description</th>
+                <th>Size</th>
+                <th>Last Changeout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>R1-1</td>
+                <td>Stop Sign</td>
+                <td>Oct 30"</td>
+                <td>12/1/2021</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!--================= Dynamic Sign Form ================-->
+          <form id="sign_form">
+            <!-- TODO: Get options from DB? -->
+            <div class="field">
+              <label class="label">Class</label>
+              <div class="control">
+                <div class="select">
+                  <select>
+                    <option></option>
+                    <option>Regulatory</option>
+                    <option>Warning</option>
+                    <option>Guide</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Sub Class</label>
+              <div class="control">
+                <div class="select">
+                  <select>
+                    <option></option>
+                    <option>Stop&Yield</option>
+                    <option>Speed</option>
+                    <option>School</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Sign Code</label>
+              <div class="control">
+                <div class="select">
+                  <select>
+                    <option></option>
+                    <option>R1-1</option>
+                    <option>W1-1</option>
+                    <option>D3-1</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Description</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Description" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Size</label>
+              <div class="control">
+                <div class="select">
+                  <select>
+                    <option></option>
+                    <option>Oct 30"</option>
+                    <option>18"x6"</option>
+                    <option>24x9"</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </form>
         </section>
 
-        <!-- Footer -->
+        <!--================= Modal Footer ================-->
         <footer class="modal-card-foot">
-          <button class="button is-success">Save changes</button>
-          <button class="button closemodal">Cancel</button>
+          <!-- TODO modal card foot is not allowing for right align on buttons -->
+          <div class="field is-grouped is-grouped-right">
+            <p class="control">
+              <button class="button is-link">Next</button>
+            </p>
+            <p class="control">
+              <button class="button closemodal">Cancel</button>
+            </p>
+            <p class="control">
+              <button class="button is-success">Save</button>
+            </p>
+          </div>
         </footer>
       </div>
     </div>
