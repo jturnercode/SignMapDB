@@ -160,11 +160,33 @@ function close_cmenu() {
 }
 
 /**========================================================================
- *                             Window.onload
+ **                           next()
+ *?  js for next button on add support form; hide and un-hide elements
+ *========================================================================**/
+function next() {
+  nextcontrol = document.getElementById("next_button");
+
+  nextcontrol.addEventListener("click", (e) => {
+    // TODO - hide and unhide by class not ids
+    nextcontrol.classList.add("is-hidden");
+    document.getElementById("save_button").classList.remove("is-hidden");
+    document.getElementById("save_button").classList.remove("is-hidden");
+    document.getElementById("sign_table").classList.remove("is-hidden");
+    // document.getElementById("addsign_button").classList.remove("is-hidden");
+
+    document.getElementById("addsup_form").classList.add("is-hidden");
+    document.getElementById("suptab").classList.remove("is-active");
+    document.getElementById("signtab").classList.add("is-active");
+    // TODO Make sign tab active
+  });
+}
+
+/**========================================================================
+ **                             Window.onload
  *
- * ADD EVENT LISTENERS ONLOAD
- *  window.onload with anonymous function is needed to add
- *  event listensers to html file via external .js file
+ *? ADD EVENT LISTENERS ONLOAD
+ *?   window.onload with anonymous function is needed to add
+ *?   event listensers to html file via external .js file
  *========================================================================**/
 
 window.onload = function () {
@@ -172,4 +194,5 @@ window.onload = function () {
   closemodal("addsup_modal");
   closemodal("modal1");
   close_cmenu();
+  next();
 };

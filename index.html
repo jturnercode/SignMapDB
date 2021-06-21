@@ -67,12 +67,12 @@
             style="background-color: dimgray"
           >
             <ul>
-              <li class="is-active">
+              <li class="is-active" id="suptab">
                 <a>
                   <span>Supports</span>
                 </a>
               </li>
-              <li>
+              <li id="signtab">
                 <a>
                   <span>Signs</span>
                 </a>
@@ -82,15 +82,11 @@
         </header>
 
         <section class="modal-card-body">
-          <!-- Content ... -->
-
-          <!-- TODO: if needed use TABS versus panel? -->
-          <!-- <div class="panel-block"> -->
-          <!-- </div> -->
+          <!--================= Add Support Form Area ================-->
 
           <form id="addsup_form">
             <!-- support type -->
-            <!-- TODO: Get options from DB? -->
+            <!-- TODO Get options from DB? -->
             <div class="field">
               <label class="label">Support Type</label>
               <div class="control">
@@ -132,7 +128,13 @@
 
           <!--================= SIGN TABLE ================-->
 
-          <table class="table is-narrow is-hoverable is-border is-fullwidth">
+          <table
+            class="
+              table
+              is-narrow is-hoverable is-border is-fullwidth is-hidden
+            "
+            id="sign_table"
+          >
             <thead>
               <tr>
                 <th>Sign Code</th>
@@ -152,8 +154,8 @@
           </table>
 
           <!--================= Dynamic Sign Form ================-->
-          <form id="sign_form">
-            <!-- TODO: Get options from DB? -->
+          <form class="is-hidden" id="sign_form">
+            <!-- TODO Get options from DB? -->
             <div class="field">
               <label class="label">Class</label>
               <div class="control">
@@ -223,13 +225,13 @@
         <footer class="modal-card-foot">
           <!-- TODO modal card foot is not allowing for right align on buttons -->
           <div class="field is-grouped is-grouped-right">
-            <p class="control">
+            <p class="control" id="next_button">
               <button class="button is-link">Next</button>
             </p>
             <p class="control">
               <button class="button closemodal">Cancel</button>
             </p>
-            <p class="control">
+            <p class="control is-hidden" id="save_button">
               <button class="button is-success">Save</button>
             </p>
           </div>
