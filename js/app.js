@@ -181,6 +181,26 @@ function tosigns() {
 }
 
 /**========================================================================
+ **                           resetform()
+ *?  js to reset add support form back; used in different cases
+ *========================================================================**/
+
+// TODO figure out how to export function to use in map.js
+function resetform() {
+  document.querySelectorAll(".signform").forEach((element) => {
+    element.classList.add("is-hidden");
+  });
+
+  document.querySelectorAll(".supportform").forEach((element) => {
+    element.classList.remove("is-hidden");
+  });
+
+  // Reset tabs
+  document.getElementById("signtab").classList.remove("is-active");
+  document.getElementById("suptab").classList.add("is-active");
+}
+
+/**========================================================================
  **                           tosupport()
  *?  js for back button on add support form; hide and un-hide elements
  *========================================================================**/
@@ -188,16 +208,23 @@ function tosupport() {
   nextcontrol = document.getElementById("back_button");
 
   nextcontrol.addEventListener("click", (e) => {
-    document.querySelectorAll(".signform").forEach((element) => {
-      element.classList.add("is-hidden");
-    });
+    resetform();
+  });
+}
 
-    document.querySelectorAll(".supportform").forEach((element) => {
+/**========================================================================
+ **                           plussign()
+ *?  js for plus sign icon to un-hide add sign form elements
+ *========================================================================**/
+
+//  TODO more logic needed to process adding sign to sign table and hiding elements
+function plussign() {
+  plus = document.getElementById("plussign");
+
+  plus.addEventListener("click", (e) => {
+    document.querySelectorAll(".asignform").forEach((element) => {
       element.classList.remove("is-hidden");
     });
-
-    document.getElementById("signtab").classList.remove("is-active");
-    document.getElementById("suptab").classList.add("is-active");
   });
 }
 
@@ -216,4 +243,5 @@ window.onload = function () {
   close_cmenu();
   tosigns();
   tosupport();
+  plussign();
 };

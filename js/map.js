@@ -1,3 +1,6 @@
+//TODO how do i import function? package.json to specify module?
+// import { resetform } from "./js/app.js";
+
 // INITIALIZE GOOGLE MAP
 function initMap() {
   // MAP OPTIONS PASSED TO new Map instance
@@ -63,8 +66,24 @@ function initMap() {
       mod = document.getElementById("addsup_modal");
       mod.classList.add("is-active");
 
-      // CLEAR FORM OF ANY PREVIOUS DATA
+      // CLEAR FORMS OF ANY PREVIOUS DATA
       document.getElementById("addsup_form").reset();
+      document.getElementById("addsign_form").reset();
+
+      // HIDE SIGN FORM
+      document.querySelectorAll(".signform").forEach((element) => {
+        element.classList.add("is-hidden");
+      });
+
+      // SHOW SUPPORT FORM
+      // TODO check that it does not add twice
+      document.querySelectorAll(".supportform").forEach((element) => {
+        element.classList.remove("is-hidden");
+      });
+
+      // RESET TABS
+      document.getElementById("signtab").classList.remove("is-active");
+      document.getElementById("suptab").classList.add("is-active");
 
       // INSERT LAT&lONG INTO TEXT BOX
       latlng_json = e.latLng.toJSON();
@@ -115,31 +134,4 @@ function show_cmenu() {
     e.x + cm.offsetWidth > window.innerWidth
       ? window.innerWidth - cm.offsetWidth
       : e.x + "px";
-}
-
-/**========================================================================
- **                           addsup_form()
- *?  process form controls for add support modal form
- *========================================================================**/
-
-//  TODO: see code here
-// https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_form_steps
-
-function showTab(n) {
-  // This function will display the specified tab of the form...
-  var x = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
-  //... and fix the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-  } else {
-    document.getElementById("prevBtn").style.display = "inline";
-  }
-  if (n == x.length - 1) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
-  } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
-  }
-  //... and run a function that will display the correct step indicator:
-  fixStepIndicator(n);
 }

@@ -79,12 +79,14 @@
               </li>
             </ul>
           </nav>
-          <!-- TODO increase size of button and right align -->
-          <i
-            class="signform bi bi-plus-circle is-hidden"
-            width="16"
-            height="16"
-          ></i>
+          <!-- TODO right align plus button -->
+          <div>
+            <i
+              class="signform bi bi-plus-circle is-hidden"
+              style="font-size: 1.5rem; color: cornflowerblue"
+              id="plussign"
+            ></i>
+          </div>
         </header>
 
         <section class="modal-card-body">
@@ -159,8 +161,8 @@
             </tbody>
           </table>
 
-          <!--================= Dynamic Sign Form ================-->
-          <form class="is-hidden">
+          <!--================= Sign Form ================-->
+          <form class="is-hidden asignform" id="addsign_form">
             <!-- TODO Get options from DB? -->
             <div class="field">
               <label class="label">Class</label>
@@ -240,7 +242,7 @@
             <p class="control">
               <button class="button closemodal">Cancel</button>
             </p>
-            <p class="signform control is-hidden">
+            <p class="control is-hidden">
               <button class="button is-success">Save</button>
             </p>
           </div>
