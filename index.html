@@ -56,11 +56,11 @@
       <div class="modal-background"></div>
       <div class="modal-card" style="width: 75%">
         <!-- TODO Fix modal header not allowing fullwidth for tabs -->
-        <!-- <header class="modal-card-head"> -->
-        <header>
+        <header class="modal-card-head">
+          <!-- <header> -->
           <!-- <p class="modal-card-title">Modal title</p> -->
 
-          <!-- TODO: Add js to switch between Tabs -->
+          <!-- TODO Add js to switch between Tabs -->
 
           <nav
             class="tabs is-boxed is-fullwidth"
@@ -74,17 +74,23 @@
               </li>
               <li id="signtab">
                 <a>
-                  <span>Signs</span>
+                  <span>Signs </span>
                 </a>
               </li>
             </ul>
           </nav>
+          <!-- TODO increase size of button and right align -->
+          <i
+            class="signform bi bi-plus-circle is-hidden"
+            width="16"
+            height="16"
+          ></i>
         </header>
 
         <section class="modal-card-body">
           <!--================= Add Support Form Area ================-->
 
-          <form id="addsup_form">
+          <form class="supportform" id="addsup_form">
             <!-- support type -->
             <!-- TODO Get options from DB? -->
             <div class="field">
@@ -130,10 +136,10 @@
 
           <table
             class="
+              signform
               table
               is-narrow is-hoverable is-border is-fullwidth is-hidden
             "
-            id="sign_table"
           >
             <thead>
               <tr>
@@ -154,7 +160,7 @@
           </table>
 
           <!--================= Dynamic Sign Form ================-->
-          <form class="is-hidden" id="sign_form">
+          <form class="is-hidden">
             <!-- TODO Get options from DB? -->
             <div class="field">
               <label class="label">Class</label>
@@ -225,13 +231,16 @@
         <footer class="modal-card-foot">
           <!-- TODO modal card foot is not allowing for right align on buttons -->
           <div class="field is-grouped is-grouped-right">
-            <p class="control" id="next_button">
-              <button class="button is-link">Next</button>
+            <p class="supportform control">
+              <button class="button is-link" id="next_button">Next</button>
+            </p>
+            <p class="signform control is-hidden">
+              <button class="button is-link" id="back_button">Back</button>
             </p>
             <p class="control">
               <button class="button closemodal">Cancel</button>
             </p>
-            <p class="control is-hidden" id="save_button">
+            <p class="signform control is-hidden">
               <button class="button is-success">Save</button>
             </p>
           </div>
