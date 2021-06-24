@@ -1,5 +1,5 @@
-//TODO how do i import function? package.json to specify module?
-// import { resetform } from "./js/app.js";
+//TODO how do i import function? srcing app.js at index.htl causing issue should be type module as well?
+// import { resetform } from "./app.js";
 
 // INITIALIZE GOOGLE MAP
 function initMap() {
@@ -70,20 +70,21 @@ function initMap() {
       document.getElementById("addsup_form").reset();
       document.getElementById("addsign_form").reset();
 
-      // HIDE SIGN FORM
-      document.querySelectorAll(".signform").forEach((element) => {
-        element.classList.add("is-hidden");
-      });
+      // // HIDE SIGN FORM
+      // document.querySelectorAll(".signform").forEach((element) => {
+      //   element.classList.add("is-hidden");
+      // });
 
-      // SHOW SUPPORT FORM
-      // TODO check that it does not add twice
-      document.querySelectorAll(".supportform").forEach((element) => {
-        element.classList.remove("is-hidden");
-      });
+      // // SHOW SUPPORT FORM
+      // // TODO check that it does not add twice
+      // document.querySelectorAll(".supportform").forEach((element) => {
+      //   element.classList.remove("is-hidden");
+      // });
 
-      // RESET TABS
-      document.getElementById("signtab").classList.remove("is-active");
-      document.getElementById("suptab").classList.add("is-active");
+      // // RESET TABS
+      // document.getElementById("signtab").classList.remove("is-active");
+      // document.getElementById("suptab").classList.add("is-active");
+      resetform();
 
       // INSERT LAT&lONG INTO TEXT BOX
       latlng_json = e.latLng.toJSON();

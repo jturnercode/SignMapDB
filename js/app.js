@@ -225,6 +225,9 @@ function plussign() {
     document.querySelectorAll(".asignform").forEach((element) => {
       element.classList.remove("is-hidden");
     });
+
+    document.querySelector("#back_button").classList.add("is-hidden");
+    document.querySelector("#cancel_button").classList.add("is-hidden");
   });
 }
 

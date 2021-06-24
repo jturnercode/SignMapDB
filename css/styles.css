@@ -45,3 +45,12 @@ div.cm-divider {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+#plussign:hover {
+  /* font-size: 2rem !important; */
+  color: cornflowerblue !important;
+}
+
+#xcircle:hover {
+  color: cornflowerblue !important;
+}
