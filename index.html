@@ -56,11 +56,11 @@
       <div class="modal-background"></div>
       <div class="modal-card" style="width: 75%">
         <!-- TODO Fix modal header not allowing fullwidth for tabs -->
-        <header class="modal-card-head">
-          <!-- <header> -->
+        <!-- <header class="modal-card-head"> -->
+        <header>
           <!-- <p class="modal-card-title">Modal title</p> -->
 
-          <!-- TODO Add js to switch between Tabs -->
+          <!-- TODO Add js to switch between Tabs if you click on tab -->
 
           <nav
             class="tabs is-boxed is-fullwidth"
@@ -79,14 +79,6 @@
               </li>
             </ul>
           </nav>
-          <!-- TODO right align plus button -->
-          <div>
-            <i
-              class="signform bi bi-plus-circle is-hidden"
-              style="font-size: 1.5rem; color: cornflowerblue"
-              id="plussign"
-            ></i>
-          </div>
         </header>
 
         <section class="modal-card-body">
@@ -135,115 +127,158 @@
           </form>
 
           <!--================= SIGN TABLE ================-->
-
-          <table
-            class="
-              signform
-              table
-              is-narrow is-hoverable is-border is-fullwidth is-hidden
-            "
-          >
-            <thead>
-              <tr>
-                <th>Sign Code</th>
-                <th>Description</th>
-                <th>Size</th>
-                <th>Last Changeout</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>R1-1</td>
-                <td>Stop Sign</td>
-                <td>Oct 30"</td>
-                <td>12/1/2021</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="box">
+            <div class="is-pulled-right">
+              <i
+                class="hovclass signform bi bi-plus-circle is-hidden"
+                style="font-size: 1.5rem"
+                id="plussign"
+              ></i>
+            </div>
+            <table
+              class="
+                signform
+                table
+                is-narrow is-hoverable is-border is-fullwidth is-hidden
+              "
+            >
+              <thead>
+                <tr>
+                  <th>SignID</th>
+                  <th>Sign Code</th>
+                  <th>Description</th>
+                  <th>Size</th>
+                  <th>Last Changeout</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>432</td>
+                  <td>R1-1</td>
+                  <td>Stop Sign</td>
+                  <td>Oct 30"</td>
+                  <td>12/1/2021</td>
+                  <!-- TODO insert icons -->
+                  <td>
+                    <i class="hovclass bi bi-pencil"></i>
+                    <i class="hovclass bi bi-trash"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
           <!--================= Sign Form ================-->
-          <form class="is-hidden asignform" id="addsign_form">
-            <!-- TODO Get options from DB? -->
-            <div class="field">
-              <label class="label">Class</label>
-              <div class="control">
-                <div class="select">
-                  <select>
-                    <option></option>
-                    <option>Regulatory</option>
-                    <option>Warning</option>
-                    <option>Guide</option>
-                  </select>
+          <!-- TODO draw border or somthing around sign form -->
+          <div class="box is-hidden asignform">
+            <form class="is-hidden asignform" id="addsign_form">
+              <!-- Close form button -->
+
+              <!-- TODO Add js for close button -->
+              <i
+                class="
+                  hovclass
+                  asignform
+                  bi bi-x-circle
+                  is-hidden is-pulled-right
+                "
+                style="font-size: 1.5rem"
+                id="xcircle"
+              ></i>
+              <!-- TODO Get options from DB? -->
+              <div class="field">
+                <label class="label">Class</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option></option>
+                      <option>Regulatory</option>
+                      <option>Warning</option>
+                      <option>Guide</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">Sub Class</label>
-              <div class="control">
-                <div class="select">
-                  <select>
-                    <option></option>
-                    <option>Stop&Yield</option>
-                    <option>Speed</option>
-                    <option>School</option>
-                  </select>
+              <div class="field">
+                <label class="label">Sub Class</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option></option>
+                      <option>Stop&Yield</option>
+                      <option>Speed</option>
+                      <option>School</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">Sign Code</label>
-              <div class="control">
-                <div class="select">
-                  <select>
-                    <option></option>
-                    <option>R1-1</option>
-                    <option>W1-1</option>
-                    <option>D3-1</option>
-                  </select>
+              <div class="field">
+                <label class="label">Sign Code</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option></option>
+                      <option>R1-1</option>
+                      <option>W1-1</option>
+                      <option>D3-1</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">Description</label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Description" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Size</label>
-              <div class="control">
-                <div class="select">
-                  <select>
-                    <option></option>
-                    <option>Oct 30"</option>
-                    <option>18"x6"</option>
-                    <option>24x9"</option>
-                  </select>
+              <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Description" />
                 </div>
               </div>
-            </div>
-          </form>
+
+              <div class="field">
+                <label class="label">Size</label>
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option></option>
+                      <option>Oct 30"</option>
+                      <option>18"x6"</option>
+                      <option>24x9"</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="install2">Install Date</label>
+                <div class="control">
+                  <input class="input" type="date" id="install2" />
+                </div>
+              </div>
+
+              <p class="control">
+                <!-- TODO Need to add JS for button else it will just reload entire website, default behavior?? -->
+                <button class="button is-success">Add Sign</button>
+              </p>
+            </form>
+          </div>
         </section>
 
         <!--================= Modal Footer ================-->
         <footer class="modal-card-foot">
           <!-- TODO modal card foot is not allowing for right align on buttons -->
           <div class="field is-grouped is-grouped-right">
-            <p class="supportform control">
-              <button class="button is-link" id="next_button">Next</button>
-            </p>
             <p class="signform control is-hidden">
               <button class="button is-link" id="back_button">Back</button>
             </p>
             <p class="control">
-              <button class="button closemodal">Cancel</button>
+              <button class="button closemodal" id="cancel_button">
+                Cancel
+              </button>
             </p>
-            <p class="control is-hidden">
-              <button class="button is-success">Save</button>
+            <p class="supportform control">
+              <button class="button is-link" id="next_button">Next</button>
             </p>
           </div>
         </footer>

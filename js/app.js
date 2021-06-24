@@ -232,6 +232,27 @@ function plussign() {
 }
 
 /**========================================================================
+ **                           closexcircle()
+ *?  js for plus sign icon to un-hide add sign form elements
+ *========================================================================**/
+
+//  TODO more logic needed to process adding sign to sign table and hiding elements
+function xcircle() {
+  plus = document.getElementById("xcircle");
+
+  plus.addEventListener("click", (e) => {
+    document.querySelectorAll(".asignform").forEach((element) => {
+      element.classList.add("is-hidden");
+    });
+
+    document.getElementById("addsign_form").reset();
+
+    document.querySelector("#back_button").classList.remove("is-hidden");
+    document.querySelector("#cancel_button").classList.remove("is-hidden");
+  });
+}
+
+/**========================================================================
  **                             Window.onload
  *
  *? ADD EVENT LISTENERS ONLOAD
@@ -247,4 +268,5 @@ window.onload = function () {
   tosigns();
   tosupport();
   plussign();
+  xcircle();
 };

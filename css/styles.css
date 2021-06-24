@@ -46,11 +46,7 @@ div.cm-divider {
   transform: translate(-50%, -50%);
 }
 
-#plussign:hover {
-  /* font-size: 2rem !important; */
-  color: cornflowerblue !important;
-}
-
-#xcircle:hover {
+.hovclass:hover {
+  /* font-size: 1.5rem !important; */
   color: cornflowerblue !important;
 }
