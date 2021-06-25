@@ -9,6 +9,12 @@ env.js
 #DB
 *.db
 
+
+# files
+addform.html
+notes.js
+
+
 # Images
 /images
 .jpg
