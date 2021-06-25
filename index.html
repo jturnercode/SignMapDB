@@ -69,7 +69,7 @@
             <ul>
               <li class="is-active" id="suptab">
                 <a>
-                  <span>Supports</span>
+                  <span>Support</span>
                 </a>
               </li>
               <li id="signtab">
@@ -81,6 +81,7 @@
           </nav>
         </header>
 
+        <!-- style="background-color: rgb(127, 146, 155) !important" -->
         <section class="modal-card-body">
           <!--================= Add Support Form Area ================-->
 
@@ -127,21 +128,15 @@
           </form>
 
           <!--================= SIGN TABLE ================-->
-          <div class="box">
+          <div class="box is-hidden signform">
             <div class="is-pulled-right">
               <i
                 class="hovclass signform bi bi-plus-circle is-hidden"
-                style="font-size: 1.5rem"
+                style="font-size: 1.5rem; color: cornflowerblue"
                 id="plussign"
               ></i>
             </div>
-            <table
-              class="
-                signform
-                table
-                is-narrow is-hoverable is-border is-fullwidth is-hidden
-              "
-            >
+            <table class="table is-narrow is-hoverable is-border is-fullwidth">
               <thead>
                 <tr>
                   <th>SignID</th>
@@ -174,8 +169,6 @@
           <div class="box is-hidden asignform">
             <form class="is-hidden asignform" id="addsign_form">
               <!-- Close form button -->
-
-              <!-- TODO Add js for close button -->
               <i
                 class="
                   hovclass
@@ -183,7 +176,7 @@
                   bi bi-x-circle
                   is-hidden is-pulled-right
                 "
-                style="font-size: 1.5rem"
+                style="font-size: 1.5rem; color: cornflowerblue"
                 id="xcircle"
               ></i>
               <!-- TODO Get options from DB? -->
@@ -256,11 +249,13 @@
                   <input class="input" type="date" id="install2" />
                 </div>
               </div>
-
-              <p class="control">
-                <!-- TODO Need to add JS for button else it will just reload entire website, default behavior?? -->
-                <button class="button is-success">Add Sign</button>
-              </p>
+              <div class="field">
+                <p class="control">
+                  <!-- TODO  Why does button reload entire website when pressed, default behavior?? -->
+                  <!-- TODO **** Need to add JS for button; SEND INFO TO BACKEND AND POPULATE TABLE WITH SIGNID *** -->
+                  <button class="button is-success">Add Sign</button>
+                </p>
+              </div>
             </form>
           </div>
         </section>
@@ -269,16 +264,21 @@
         <footer class="modal-card-foot">
           <!-- TODO modal card foot is not allowing for right align on buttons -->
           <div class="field is-grouped is-grouped-right">
-            <p class="signform control is-hidden">
+            <p class="control is-hidden signform">
               <button class="button is-link" id="back_button">Back</button>
             </p>
-            <p class="control">
+            <p class="control supportform">
               <button class="button closemodal" id="cancel_button">
                 Cancel
               </button>
             </p>
-            <p class="supportform control">
+            <p class="control supportform">
               <button class="button is-link" id="next_button">Next</button>
+            </p>
+            <p class="control is-hidden is-pulled-right signform">
+              <button class="button is-success" id="finish_button">
+                Finish
+              </button>
             </p>
           </div>
         </footer>

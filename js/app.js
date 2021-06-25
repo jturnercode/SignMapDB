@@ -228,6 +228,7 @@ function plussign() {
 
     document.querySelector("#back_button").classList.add("is-hidden");
     document.querySelector("#cancel_button").classList.add("is-hidden");
+    document.querySelector("#finish_button").classList.add("is-hidden");
   });
 }
 
@@ -249,6 +250,7 @@ function xcircle() {
 
     document.querySelector("#back_button").classList.remove("is-hidden");
     document.querySelector("#cancel_button").classList.remove("is-hidden");
+    document.querySelector("#finish_button").classList.remove("is-hidden");
   });
 }
 
