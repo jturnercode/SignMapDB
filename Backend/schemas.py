@@ -2,15 +2,27 @@ from starlette.requests import empty_receive
 from database import Base
 from pydantic import BaseModel
 from typing import Optional, List
+# TODO !!!! Seems i cannot initiate a db with Option[] attributes??
 
 
-# -------- Sign Request Body Schema ------
+# -------- Request Body Schema ------
 
 # pydantic model for sign class; request body
 class Sign(BaseModel):
+
+    sign_class: str
     sign_code: str
-    street: str
-    lat_lng: Optional[str]
+    description: Optional[str]
+    size: str
+    sign_install: Optional[str]
+
+
+# pydantic model for support; request body
+class Support(BaseModel):
+    
+    sup_type: str
+    lat_lng: str
+    sup_install: Optional[str]
 
 
 
@@ -18,11 +30,12 @@ class Sign(BaseModel):
 
 # pydantic model for sign class; response body
 class ShowSigns(Sign):
-    id: int
+    signid: int
     # sign_code: str
-    # street: str
-    # lat_lng: Optional[str]
+
 
     class Config:
         orm_mode = True
+
+
 

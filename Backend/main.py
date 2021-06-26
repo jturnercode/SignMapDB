@@ -5,12 +5,12 @@ import models, schemas
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
-# TODO: ADD BETTER HTTP EXCEPTIONS VIA FASTAPI HANDLERS
+# TODO ADD BETTER HTTP EXCEPTIONS VIA FASTAPI HANDLERS
 
 # Instance of app
 app = FastAPI()
 
-# TODO: how does this affect deployment if frontend and backend on same server
+# TODO how does this affect deployment if frontend and backend on same server
 # read: https://fastapi.tiangolo.com/tutorial/cors/?h=cors
 # Add allowed frontend origin to meet CORS Policy
 origins = [
@@ -38,7 +38,7 @@ def get_db():
     finally:
         db.close()
 
-# # TODO: How do i use FORM() to handle form data from html and save to db?
+# # TODO How do i use FORM() to handle form data from html and save to db?
 # @app.post("/login/")
 # async def login(username: str = Form(...), password: str = Form(...)):
 #     return {"username": username}
@@ -69,22 +69,14 @@ def get_allsigns(db: Session = Depends(get_db)):
     signs = db.query(models.Sign).all()
     return signs
 
-# GET SIGNS BY SIGN ID
-@app.get('/getbysignID/{signid}', tags=["Get Signs"])
-def get_signid(signid: int, db: Session = Depends(get_db)):
-    sign = db.query(models.Sign).filter(models.Sign.id == signid).first()
-    return sign
-
-# GET SIGNS BY SIGN CODE
-@app.get('/getbysign_code/{sign_code}', tags=["Get Signs"])
-def get_signcode(sign_code: str, db: Session = Depends(get_db)):
-    signs = db.query(models.Sign).filter(models.Sign.sign_code == sign_code).all()
-    return signs
 
 # POST SIGN TO DATABASE
 @app.post('/save', tags=["Save Sign"])
 def create_sign(request: schemas.Sign, db: Session = Depends(get_db)):
-    new_sign = models.Sign(sign_code = request.sign_code, street = request.street, lat_lng = request.lat_lng)
+
+    new_sign = models.Sign(sign_class = request.sign_class, sign_code = request.sign_code,
+     description = request.description, size = request.size, sign_install = request.sign_install)
+     
     db.add(new_sign)
     db.commit()
     # refresh 'new_sign' instance to contain new info like id from database
@@ -92,22 +84,38 @@ def create_sign(request: schemas.Sign, db: Session = Depends(get_db)):
     return new_sign
 
 
-# POST SIGN TO DATABASE
-@app.post('/postsign', tags=["Save Sign"])
-async def post_sign(sign_code: str = Form(...), street: str = Form(...),
- lat_lng: str = Form(...), db: Session = Depends(get_db)):
+
+# # GET SIGNS BY SIGN ID
+# @app.get('/getbysignID/{signid}', tags=["Get Signs"])
+# def get_signid(signid: int, db: Session = Depends(get_db)):
+#     sign = db.query(models.Sign).filter(models.Sign.id == signid).first()
+#     return sign
+
+# # GET SIGNS BY SIGN CODE
+# @app.get('/getbysign_code/{sign_code}', tags=["Get Signs"])
+# def get_signcode(sign_code: str, db: Session = Depends(get_db)):
+#     signs = db.query(models.Sign).filter(models.Sign.sign_code == sign_code).all()
+#     return signs
+
+
+
+
+# # POST SIGN TO DATABASE
+# @app.post('/postsign', tags=["Save Sign"])
+# async def post_sign(sign_code: str = Form(...), street: str = Form(...),
+#  lat_lng: str = Form(...), db: Session = Depends(get_db)):
    
-    new_sign = models.Sign(sign_code = sign_code, street = street, lat_lng = lat_lng)
-    db.add(new_sign)
-    db.commit()
-    # refresh 'new_sign' instance to contain new info like id from database
-    db.refresh(new_sign)
-    return new_sign
+#     new_sign = models.Sign(sign_code = sign_code, street = street, lat_lng = lat_lng)
+#     db.add(new_sign)
+#     db.commit()
+#     # refresh 'new_sign' instance to contain new info like id from database
+#     db.refresh(new_sign)
+#     return new_sign
     
 
 
 
-# TODO: DELETE SIGN FROM DB
+# TODO DELETE SIGN FROM DB
 # @app.delete('/delete/{sign_id}', tags=["Signs"])
 # def delete_sign(sign_id: int):
 #     return db.pop(sign_id - 1)
