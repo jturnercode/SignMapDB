@@ -2,6 +2,9 @@
 # pipfile.lock 
 *.lock
 
+# Python
+__pycache__/
+
 #ENV
 .env
 env.js
@@ -10,7 +13,7 @@ env.js
 *.db
 
 
-# files
+# files with notes
 addform.html
 notes.js
 
@@ -64,15 +67,9 @@ $RECYCLE.BIN/
 *.lnk
 
 
-
 ### Sass ###
 .sass-cache/
 *.css.map
-
-
-
-
-
 
 
 
