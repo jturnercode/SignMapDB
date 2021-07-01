@@ -5,6 +5,7 @@ import models, schemas
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
+
 # TODO ADD BETTER HTTP EXCEPTIONS VIA FASTAPI HANDLERS
 
 # Instance of app
@@ -44,44 +45,62 @@ def get_db():
 #     return {"username": username}
 
 
-# # HOME PAGE
-# @app.get("/")
-# def home(request: Request ):
-#     """
-#     SHOW MAP HOME PAGE
-#     """
-
-#     # stocks = db.query(Stock)
-
-#     # if forward_pe:
-#     #     stocks = stocks.filter(Stock.forward_pe < forward_pe)
-
- 
-#     return templates.TemplateResponse("index.html", {
-#         "request": request
-#     })
-
-
+#================================================
+# *               Sign Endpoints
+#================================================
 
 # GET ALL SIGNS IN DATABASE
-@app.get('/get_allsigns', tags=["Get Signs"])
-def get_allsigns(db: Session = Depends(get_db)):
+@app.get('/getSigns', tags=["Signs"])
+def get_signs(db: Session = Depends(get_db)):
     signs = db.query(models.Sign).all()
     return signs
 
 
 # POST SIGN TO DATABASE
-@app.post('/save', tags=["Save Sign"])
+@app.post('/addSign', tags=["Signs"])
 def create_sign(request: schemas.Sign, db: Session = Depends(get_db)):
 
-    new_sign = models.Sign(sign_class = request.sign_class, sign_code = request.sign_code,
-     description = request.description, size = request.size, sign_install = request.sign_install)
+    new_sign = models.Sign(SignClass = request.sign_class, SignCode = request.sign_code,
+     Description = request.description, Size = request.size, SignInstall = request.sign_install, SupportFK = request.sup_fk)
      
     db.add(new_sign)
     db.commit()
     # refresh 'new_sign' instance to contain new info like id from database
     db.refresh(new_sign)
     return new_sign
+
+
+#================================================
+# *               Support Endpoints
+#================================================
+
+
+# GET ALL Supports from DATABASE
+# !Note: the List[] around the reponse model is required!; dont understand why?
+@app.get('/getSupports', tags=["Supports"], response_model=List[schemas.SupportModel])
+def get_supports(db: Session = Depends(get_db)):
+    sups = db.query(models.Support).all()
+    # print(f"*********: {sups[0].__dict__['LatLng']}")
+    # print(f"*********: {sups[0].__dict__}")
+    return sups
+
+
+
+# POST SUPPORT TO DATABASE
+@app.post('/addSupport', tags=["Supports"])
+def create_support(request: schemas.SupportBase, db: Session = Depends(get_db)):
+
+    #* HERE THE PYDANTIC SCHEMA VALUES ARE TRANFERED TO A SQLALCHEMY MODEL INSTANCE COMPATIBLE WITH DB
+    new_sup = models.Support(SupportType = request.sup_type, LatLng = request.lat_lng, SupportInstall = request.sup_install)
+     
+    db.add(new_sup)
+    db.commit()
+    # refresh 'new_sign' instance to contain new info like id from database
+    db.refresh(new_sup)
+    return new_sup
+
+
+
 
 
 
