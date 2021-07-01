@@ -16,6 +16,7 @@ env.js
 # files with notes
 addform.html
 notes.js
+context.html
 
 
 # Images
@@ -81,3 +82,4 @@ sftp-config.json
 # Visual Studio Code - https://code.visualstudio.com/
 .settings/
 .vscode/
+
