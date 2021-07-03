@@ -4,71 +4,61 @@ from typing import Optional, List
 # TODO !!!! Seems i cannot initiate a db with Optional[] attributes??
 
 
-# -------- Request Body Schema ------
+# -------- Pydantic Models ------
 
-# pydantic model for sign class; request body
-class Sign(BaseModel):
-    sign_class: str
-    sign_code: str
-    description: Optional[str]
-    size: str
-    sign_install: str
 
-    sup_fk: int
+# pydantic model for Sign Maint
+class SignMaint(BaseModel):
+    SignClass: str
+    SignCode: str
+    Description: str
+    Size: str
+    SignInstall: str
+    Cost: float
+    Note: Optional[str]
 
-    
 
-class SignList(BaseModel):
-    sign_code: str
-    description: Optional[str]
-    size: str
-    sign_install: str
+# pydantic model for creating new sign with support
+class AddSign(BaseModel):
+    # SupportID assocciated with each SignID
+    SupportFK: int
 
+    SignClass: str
+    SignCode: str
+    Description: str
+    Size: str
+    SignDate: str
+    Cost: float
+    InstallType: str
 
 
 class SignModel(BaseModel):
     SignID: int
+    SignClass: str
+    SignCode: str
     Size: str
-    SignInstall: str
+    SignDate: str
 
     class Config:
         orm_mode = True
 
 
-
-# pydantic model for support; request body
-class SupportBase(BaseModel):
-
-    sup_type: str
-    lat_lng: str
-    sup_install: Optional[str]
-
+# pydantic model for adding support
+class AddSupport(BaseModel):
+    SupportType: str
+    LatLng: str
+    InstallType: str
+    SupportDate: str
+    Cost: float
 
 
 class SupportModel(BaseModel):
     SupportID: int
     LatLng: str
-    SupportInstall: str
+    SupportDate: str
+
+    # orm field
     signs: List[SignModel] = []
 
     class Config:
         orm_mode = True
-
-
-
-
-
-
-# -------- Response Models ------
-
-# pydantic model for sign class; response body
-class ShowSigns(Sign):
-    id: int
-    # sign_code: str
-
-
-    class Config:
-        orm_mode = True
-
-
-

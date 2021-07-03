@@ -1,7 +1,8 @@
 from typing import List
 from fastapi import FastAPI, Depends, Form, Request
 from database import SessionLocal, engine
-import models, schemas
+import models
+import schemas
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -30,8 +31,10 @@ app.add_middleware(
 
 models.Base.metadata.create_all(bind=engine)
 
-# FUNCTION WHICH CREATES THE SESSION; 
+# FUNCTION WHICH CREATES THE SESSION;
 # arguement when db needed for endpoint
+
+
 def get_db():
     db = SessionLocal()
     try:
@@ -45,38 +48,27 @@ def get_db():
 #     return {"username": username}
 
 
-#================================================
-# *               Sign Endpoints
-#================================================
+# ================================================
+# *               Support Endpoints
+# ================================================
 
-# GET ALL SIGNS IN DATABASE
-@app.get('/getSigns', tags=["Signs"])
-def get_signs(db: Session = Depends(get_db)):
-    signs = db.query(models.Sign).all()
-    return signs
+# Create SUPPORT TO DATABASE
+@app.post('/CreateSupport', tags=["Supports"])
+def create_support(request: schemas.AddSupport, db: Session = Depends(get_db)):
 
+    # * HERE THE PYDANTIC SCHEMA VALUES ARE TRANFERED TO A SQLALCHEMY MODEL INSTANCE COMPATIBLE WITH DB
+    new_sup = models.Support(SupportType=request.SupportType, LatLng=request.LatLng,
+                             InstallType=request.InstallType, SupportDate=request.SupportDate, Cost=request.Cost)
 
-# POST SIGN TO DATABASE
-@app.post('/addSign', tags=["Signs"])
-def create_sign(request: schemas.Sign, db: Session = Depends(get_db)):
-
-    new_sign = models.Sign(SignClass = request.sign_class, SignCode = request.sign_code,
-     Description = request.description, Size = request.size, SignInstall = request.sign_install, SupportFK = request.sup_fk)
-     
-    db.add(new_sign)
+    db.add(new_sup)
     db.commit()
     # refresh 'new_sign' instance to contain new info like id from database
-    db.refresh(new_sign)
-    return new_sign
-
-
-#================================================
-# *               Support Endpoints
-#================================================
+    db.refresh(new_sup)
+    return new_sup
 
 
 # GET ALL Supports from DATABASE
-# !Note: the List[] around the reponse model is required!; dont understand why?
+# !Note: the List[] around the reponse model is required!; default response returns list of json/dict
 @app.get('/getSupports', tags=["Supports"], response_model=List[schemas.SupportModel])
 def get_supports(db: Session = Depends(get_db)):
     sups = db.query(models.Support).all()
@@ -85,23 +77,34 @@ def get_supports(db: Session = Depends(get_db)):
     return sups
 
 
+# ================================================
+# *               Sign Endpoints
+# ================================================
 
-# POST SUPPORT TO DATABASE
-@app.post('/addSupport', tags=["Supports"])
-def create_support(request: schemas.SupportBase, db: Session = Depends(get_db)):
+# POST SIGN TO DATABASE
+@app.post('/AddSign', tags=["Signs"])
+def create_sign(request: schemas.AddSign, db: Session = Depends(get_db)):
 
-    #* HERE THE PYDANTIC SCHEMA VALUES ARE TRANFERED TO A SQLALCHEMY MODEL INSTANCE COMPATIBLE WITH DB
-    new_sup = models.Support(SupportType = request.sup_type, LatLng = request.lat_lng, SupportInstall = request.sup_install)
-     
-    db.add(new_sup)
+    # TODO Calc ChangeOut Date and add to db here
+    # Create sign maintenace record associated with SignID (SignFK)
+    add_sign = models.Sign(SupportFK=request.SupportFK, SignClass=request.SignClass, SignCode=request.SignCode,
+                           Description=request.Description, Size=request.Size, InstallType=request.InstallType,
+                           SignDate=request.SignDate, Cost=request.Cost)
+
+    db.add(add_sign)
     db.commit()
-    # refresh 'new_sign' instance to contain new info like id from database
-    db.refresh(new_sup)
-    return new_sup
+    db.refresh(add_sign)
+
+    # print(f'this is the signID: {add_sign.SignID}')
+
+    return add_sign
 
 
-
-
+# GET ALL SIGNS IN DATABASE
+@app.get('/getSigns', tags=["Signs"])
+def get_signs(db: Session = Depends(get_db)):
+    signs = db.query(models.Sign).all()
+    return signs
 
 
 # # GET SIGNS BY SIGN ID
@@ -117,21 +120,17 @@ def create_support(request: schemas.SupportBase, db: Session = Depends(get_db)):
 #     return signs
 
 
-
-
 # # POST SIGN TO DATABASE
 # @app.post('/postsign', tags=["Save Sign"])
 # async def post_sign(sign_code: str = Form(...), street: str = Form(...),
 #  lat_lng: str = Form(...), db: Session = Depends(get_db)):
-   
+
 #     new_sign = models.Sign(sign_code = sign_code, street = street, lat_lng = lat_lng)
 #     db.add(new_sign)
 #     db.commit()
 #     # refresh 'new_sign' instance to contain new info like id from database
 #     db.refresh(new_sign)
 #     return new_sign
-    
-
 
 
 # TODO DELETE SIGN FROM DB
