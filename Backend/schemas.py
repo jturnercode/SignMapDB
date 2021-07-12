@@ -49,13 +49,16 @@ class AddSupport(BaseModel):
     LatLng: str
     InstallType: str
     SupportDate: str
-    Cost: float
+    Cost: Optional[float]
 
 
 class SupportModel(BaseModel):
     SupportID: int
+    SupportType: str
     LatLng: str
+    InstallType: str
     SupportDate: str
+    Cost: float
 
     # orm field
     signs: List[SignModel] = []

@@ -9,6 +9,10 @@
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
+    <!-- TODO move away from cdn in final deployment -->
+    <!-- Axios for http requests -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <!-- Bulma Css -->
     <link rel="stylesheet" href="css/bulma.min.css" />
 
@@ -85,14 +89,40 @@
         <section class="modal-card-body">
           <!--================= Add Support Form Area ================-->
 
+          <!-- TODO Form Validation needed -->
+
           <form class="supportform" id="addsup_form">
-            <!-- support type -->
-            <!-- TODO Get options from DB? -->
+            <!-- SignID -->
+            <!-- Note: Input to hold signid after post request -->
+            <div class="field">
+              <label class="label" for="signid">Sign ID:</label>
+              <div class="control">
+                <input class="input" type="text" id="signid" disabled />
+              </div>
+            </div>
+
+            <!-- Install Type -->
+            <div class="field">
+              <label class="label">Install Type</label>
+              <div class="control">
+                <div class="select">
+                  <select name="InstallType">
+                    <option></option>
+                    <option>Existing</option>
+                    <option>New</option>
+                    <option>Knock Down</option>
+                    <option>Maintenance</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Support Type -->
             <div class="field">
               <label class="label">Support Type</label>
               <div class="control">
                 <div class="select">
-                  <select>
+                  <select name="SupportType">
                     <option></option>
                     <option>Standard Pole</option>
                     <option>Light Pole</option>
@@ -107,20 +137,34 @@
             <div class="field">
               <label class="label" for="install">Install Date</label>
               <div class="control">
-                <input class="input" type="date" id="install" />
+                <input
+                  class="input"
+                  type="date"
+                  id="install"
+                  name="SupportDate"
+                />
               </div>
             </div>
 
+            <!-- Lat & Long -->
             <div class="field">
               <label class="label" for="latlng">Lat & Long</label>
               <div class="control">
                 <input
                   class="input"
-                  id="latlng"
                   type="text"
-                  placeholder="latlng"
+                  id="latlng"
+                  name="LatLng"
                   disabled
                 />
+              </div>
+            </div>
+
+            <!-- Cost -->
+            <div class="field">
+              <label class="label" for="cost">Cost</label>
+              <div class="control">
+                <input class="input" type="text" id="cost" disabled />
               </div>
             </div>
 
@@ -165,6 +209,7 @@
           </div>
 
           <!--================= Sign Form ================-->
+          <!-- TODO Get options from DB? -->
           <!-- TODO draw border or somthing around sign form -->
           <div class="box is-hidden asignform">
             <form class="is-hidden asignform" id="addsign_form">
@@ -270,6 +315,11 @@
             <p class="control supportform">
               <button class="button closemodal" id="cancel_button">
                 Cancel
+              </button>
+            </p>
+            <p class="control supportform">
+              <button class="button is-success" id="addsup_button">
+                Add Support
               </button>
             </p>
             <p class="control supportform">

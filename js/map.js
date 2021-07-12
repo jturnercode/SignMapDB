@@ -11,10 +11,12 @@ function initMap() {
 
   const map = new google.maps.Map(document.getElementById("map"), options);
 
+  // TODO Convert to axios function?
   /**========================================================================
    *                             Fetch Signs from Database
    *  Place markers on map
    *========================================================================**/
+
   // fetch("http://127.0.0.1:8000/get_allsigns")
   //   .then((res) => res.json())
   //   .then((supports) => {

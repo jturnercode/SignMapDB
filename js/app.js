@@ -4,6 +4,17 @@ function uppercase() {
   txtbox.value = txtbox.value.toUpperCase();
 }
 
+// CONVERT FORMDATA OBJ TO JS OBJECT
+function toJsObj(formData) {
+  let jsObject = {};
+
+  for (const [key, value] of formData) {
+    jsObject[key] = value;
+  }
+
+  return jsObject;
+}
+
 // HIDE AN ELEMENT
 function hide_el() {
   var hideli = document.getElementById("hidelist");
@@ -14,36 +25,6 @@ function hide_el() {
     hideli.style.display = "block";
   }
 }
-
-// POPULATE A SELECT BOX VIA MODAL
-// function addoption(opt_value) {
-//   let msel = document.getElementById("s2");
-//   // go by: (<option value="volvo">Volvo</option>)
-
-//   // CLEAR ANY EXISITNG OPTIONS FIRST
-//   while (msel.firstChild) {
-//     msel.removeChild(msel.firstChild);
-//   }
-
-//   //  More secure way to add html versus 'innerhtml'
-//   // the below does not work becasue material css uses
-//   const opt = document.createElement("option");
-//   opt.innerText = opt_value;
-//   opt.value = opt_value;
-//   opt.selected = true;
-//   // opt.className = "red-text";
-//   msel.append(opt);
-
-//   // Re-init FormSelect to show appened item
-//   M.FormSelect.init(msel);
-
-//   // let dd = M.FormSelect.getInstance(msel);
-
-//   // console.log(dd.getSelectedValues());
-
-//   let mod = document.getElementById("modal1");
-//   M.Modal.getInstance(mod).close();
-// }
 
 /**========================================================================
  **                           filterfunction()
@@ -67,30 +48,9 @@ function filterFunction() {
   }
 }
 
-// ADD EVENT LISTENERS TO LISTENER CLASS
-// // **window.onload with anonymous func is needed to add
-// // event listensers to html file via external .js file
-// window.onload = function () {
-//   // ADD CLICK EVENT LISTENER TO LISTEN CLASS
-//   document.querySelectorAll(".listen").forEach((item) => {
-//     item.addEventListener("click", (event) => {
-//       // Note two ways to get the innerText
-//       // first via the click event
-//       console.log(event.target.innerText);
-
-//       // second via the item that was clicked on
-//       console.log(item.innerText);
-
-//       addoption(item.innerText);
-//     });
-
-//     // item.addEventListener("click", add);
-//   });
-// };
-
 /**========================================================================
  **                           showmodal()
- *?  Closes modals with class name modal1
+ *?  Function to activate modals based on modal element id
  *========================================================================**/
 
 function focus() {
@@ -106,7 +66,7 @@ function showmodal(modalid) {
 
 /**========================================================================
  **                           closemodal()
- *?  Closes modals with class name modal1
+ *?  Function to de-activate modal based on modal element id
  *========================================================================**/
 
 function closemodal(modalid) {
@@ -122,7 +82,7 @@ function closemodal(modalid) {
 
 /**========================================================================
  **                           show_cmenu()
- *?  show context menu on right click
+ *?  Show context menu on right click
  *========================================================================**/
 function show_cmenu() {
   window.addEventListener("contextmenu", (e) => {
@@ -150,7 +110,7 @@ function show_cmenu() {
 
 /**========================================================================
  **                           close_cmenu()
- *?  close context menu on click
+ *?  Close context menu on click
  *========================================================================**/
 function close_cmenu() {
   window.addEventListener("click", () => {
@@ -167,6 +127,7 @@ function tosigns() {
   nextcontrol = document.getElementById("next_button");
 
   nextcontrol.addEventListener("click", (e) => {
+    addsupport();
     document.querySelectorAll(".supportform").forEach((element) => {
       element.classList.add("is-hidden");
     });
@@ -254,6 +215,33 @@ function xcircle() {
   });
 }
 
+// /**==============================================
+//  **              addsupport()
+//  *?  Add new support to DB
+//  *=============================================**/
+
+function addsupport() {
+  // event.preventDefault();
+
+  document.getElementById("latlng").disabled = false;
+  const formElement = document.querySelector("#addsup_form");
+  let formData = toJsObj(new FormData(formElement));
+
+  document.getElementById("latlng").disabled = true;
+  console.log(formData);
+
+  // *appends a js object (not json)
+  axios
+    .post("http://127.0.0.1:8000/CreateSupport", formData)
+    .then((response) => {
+      // *can add more than one function here; note {} syntax after =>
+      // console.log(response.data["SupportID"]);
+      document.getElementById("signid").value = response.data["SupportID"];
+      document.getElementById("cost").value = response.data["Cost"];
+    })
+    .catch((err) => console.log(err, err.response));
+}
+
 /**========================================================================
  **                             Window.onload
  *
@@ -272,3 +260,33 @@ window.onload = function () {
   plussign();
   xcircle();
 };
+
+// POPULATE A SELECT BOX VIA MODAL
+// function addoption(opt_value) {
+//   let msel = document.getElementById("s2");
+//   // go by: (<option value="volvo">Volvo</option>)
+
+//   // CLEAR ANY EXISITNG OPTIONS FIRST
+//   while (msel.firstChild) {
+//     msel.removeChild(msel.firstChild);
+//   }
+
+//   //  More secure way to add html versus 'innerhtml'
+//   // the below does not work becasue material css uses
+//   const opt = document.createElement("option");
+//   opt.innerText = opt_value;
+//   opt.value = opt_value;
+//   opt.selected = true;
+//   // opt.className = "red-text";
+//   msel.append(opt);
+
+//   // Re-init FormSelect to show appened item
+//   M.FormSelect.init(msel);
+
+//   // let dd = M.FormSelect.getInstance(msel);
+
+//   // console.log(dd.getSelectedValues());
+
+//   let mod = document.getElementById("modal1");
+//   M.Modal.getInstance(mod).close();
+// }

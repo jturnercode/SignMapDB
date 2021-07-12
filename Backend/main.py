@@ -56,9 +56,20 @@ def get_db():
 @app.post('/CreateSupport', tags=["Supports"])
 def create_support(request: schemas.AddSupport, db: Session = Depends(get_db)):
 
+    # TODO Add logic and Calculate cost based on InstallType/Support Type;
+    # TODO Import Cost from db and store as variables to use as needed
+
+    SupCost = 0.00
+    if request.SupportType == "Standard Pole":
+        SupCost = 20.00
+    elif request.SupportType == "Breakaway":
+        SupCost = 50.00
+    else:
+        SupCost = 0.00
+
     # * HERE THE PYDANTIC SCHEMA VALUES ARE TRANFERED TO A SQLALCHEMY MODEL INSTANCE COMPATIBLE WITH DB
-    new_sup = models.Support(SupportType=request.SupportType, LatLng=request.LatLng,
-                             InstallType=request.InstallType, SupportDate=request.SupportDate, Cost=request.Cost)
+    new_sup = models.Support(InstallType=request.InstallType, SupportType=request.SupportType, SupportDate=request.SupportDate,
+                             LatLng=request.LatLng, Cost=SupCost)
 
     db.add(new_sup)
     db.commit()

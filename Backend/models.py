@@ -5,7 +5,7 @@
 from sqlalchemy.orm import relationship
 from database import Base
 
-# THESE ARE TYPES FROM SQLALCHEMY NEEDED TO CREATE DB; SEE BLOG MODEL
+# THESE ARE TYPES FROM SQLALCHEMY NEEDED TO CREATE DB
 from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, Float
 
 # ================================================
@@ -78,5 +78,5 @@ class SignMaint(Base):
     SupportFK = Column(Integer)
     LatLng = Column(String)
 
-    # RELATIONSHIP BETWEEN SIGN Maint AND SIGNS Table
-    # signinfo = relationship("Sign", back_populates="signmaints")
+    User = Column(String)
+    Modified = Column(String)
