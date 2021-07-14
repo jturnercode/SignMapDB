@@ -4,20 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SignMap DB</title>
+    <title>SignMapDB</title>
 
+    <!-- TODO: polyfill, is this needed? -->
     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
-    <!-- TODO move away from cdn in final deployment -->
+    <!-- TODO: CDN, move away from cdn in final deployment -->
     <!-- Axios for http requests -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <!-- Bulma Css -->
     <link rel="stylesheet" href="css/bulma.min.css" />
-
-    <!-- JS for Map & Markers -->
-    <script src="js/map.js"></script>
 
     <!-- Bootstrap Icons -->
     <link
@@ -25,8 +23,14 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
 
-    <!-- JS for Modal, Other -->
+    <!-- JS for Map & Markers -->
+    <script src="js/map.js"></script>
+
+    <!-- JS for Forms, Modal, Other -->
     <script src="js/app.js"></script>
+
+    <!-- !Temp Js -->
+    <script src="js/temp.js"></script>
   </head>
 
   <!--================= Body ================-->
@@ -42,7 +46,7 @@
     </nav>
 
     <!--============================== MAP DIV =============================-->
-    <!-- TODO: how do i fix spacing issues between nav bar and map div; ie remove the scroll bar on right side -->
+    <!-- TODO: Spacing Issues, how do i fix spacing issues between nav bar and map div; ie remove the scroll bar on right side -->
 
     <div id="map"></div>
 
@@ -59,13 +63,12 @@
     <div class="modal" id="addsup_modal">
       <div class="modal-background"></div>
       <div class="modal-card" style="width: 75%">
-        <!-- TODO Fix modal header not allowing fullwidth for tabs -->
+        <!-- TODO: Modal header, Fix modal header not allowing fullwidth for tabs -->
         <!-- <header class="modal-card-head"> -->
         <header>
           <!-- <p class="modal-card-title">Modal title</p> -->
 
-          <!-- TODO Add js to switch between Tabs if you click on tab -->
-
+          <!-- Tabs -->
           <nav
             class="tabs is-boxed is-fullwidth"
             style="background-color: dimgray"
@@ -89,8 +92,6 @@
         <section class="modal-card-body">
           <!--================= Add Support Form Area ================-->
 
-          <!-- TODO Form Validation needed -->
-
           <form class="supportform" id="addsup_form">
             <!-- SignID -->
             <!-- Note: Input to hold signid after post request -->
@@ -105,13 +106,13 @@
             <div class="field">
               <label class="label">Install Type</label>
               <div class="control">
-                <div class="select">
+                <div class="select" id="InstallType">
                   <select name="InstallType">
                     <option></option>
+                    <!-- TODO: Existing Sup Date, if existing then cost=0, set date = 1/1/1980 & disable -->
+
                     <option>Existing</option>
                     <option>New</option>
-                    <option>Knock Down</option>
-                    <option>Maintenance</option>
                   </select>
                 </div>
               </div>
@@ -121,7 +122,7 @@
             <div class="field">
               <label class="label">Support Type</label>
               <div class="control">
-                <div class="select">
+                <div class="select" id="SupportType">
                   <select name="SupportType">
                     <option></option>
                     <option>Standard Pole</option>
@@ -135,12 +136,12 @@
 
             <!-- Date -->
             <div class="field">
-              <label class="label" for="install">Install Date</label>
+              <label class="label" for="SupportDate">Install Date</label>
               <div class="control">
                 <input
                   class="input"
                   type="date"
-                  id="install"
+                  id="SupportDate"
                   name="SupportDate"
                 />
               </div>
@@ -198,7 +199,7 @@
                   <td>Stop Sign</td>
                   <td>Oct 30"</td>
                   <td>12/1/2021</td>
-                  <!-- TODO insert icons -->
+                  <!-- Modifier Icons -->
                   <td>
                     <i class="hovclass bi bi-pencil"></i>
                     <i class="hovclass bi bi-trash"></i>
@@ -209,8 +210,8 @@
           </div>
 
           <!--================= Sign Form ================-->
-          <!-- TODO Get options from DB? -->
-          <!-- TODO draw border or somthing around sign form -->
+
+          <!-- TODO: Border, draw border or somthing around sign form -->
           <div class="box is-hidden asignform">
             <form class="is-hidden asignform" id="addsign_form">
               <!-- Close form button -->
@@ -224,7 +225,7 @@
                 style="font-size: 1.5rem; color: cornflowerblue"
                 id="xcircle"
               ></i>
-              <!-- TODO Get options from DB? -->
+              <!-- TODO: Select Options, Get options from DB? -->
               <div class="field">
                 <label class="label">Class</label>
                 <div class="control">
@@ -296,8 +297,8 @@
               </div>
               <div class="field">
                 <p class="control">
-                  <!-- TODO  Why does button reload entire website when pressed, default behavior?? -->
-                  <!-- TODO **** Need to add JS for button; SEND INFO TO BACKEND AND POPULATE TABLE WITH SIGNID *** -->
+                  <!-- TODO:  Bad Behave, Why does button reload entire website when pressed, default behavior?? -->
+                  <!-- TODO: **Add Sign Btn, Need to add JS for button; SEND INFO TO BACKEND AND POPULATE TABLE WITH SIGNID *** -->
                   <button class="button is-success">Add Sign</button>
                 </p>
               </div>
@@ -307,24 +308,24 @@
 
         <!--================= Modal Footer ================-->
         <footer class="modal-card-foot">
-          <!-- TODO modal card foot is not allowing for right align on buttons -->
+          <!-- TODO: Modal card foot,  is not allowing for right align on buttons -->
           <div class="field is-grouped is-grouped-right">
             <p class="control is-hidden signform">
               <button class="button is-link" id="back_button">Back</button>
             </p>
-            <p class="control supportform">
+            <p class="control addcancel">
               <button class="button closemodal" id="cancel_button">
                 Cancel
               </button>
             </p>
-            <p class="control supportform">
+            <p class="control addcancel">
               <button class="button is-success" id="addsup_button">
                 Add Support
               </button>
             </p>
-            <p class="control supportform">
+            <!-- <p class="control supportform">
               <button class="button is-link" id="next_button">Next</button>
-            </p>
+            </p> -->
             <p class="control is-hidden is-pulled-right signform">
               <button class="button is-success" id="finish_button">
                 Finish
@@ -336,6 +337,7 @@
     </div>
 
     <!--=============================== TEST Modal1 =============================-->
+    <!-- ! Not in Use now; use later? -->
     <div class="modal" id="modal1">
       <div class="modal-background closemodal"></div>
       <div class="modal-card">

@@ -1,13 +1,10 @@
-// MAKE TEXT IN TEXTBOX UPPERCASE
-function uppercase() {
-  var txtbox = document.getElementById("sign_codes");
-  txtbox.value = txtbox.value.toUpperCase();
-}
+/**========================================================================
+ **                           toJsObj()
+ *?  CONVERT FORMDATA OBJ TO JS OBJECT; Needed to send to FastAPI backend
+ *========================================================================**/
 
-// CONVERT FORMDATA OBJ TO JS OBJECT
 function toJsObj(formData) {
   let jsObject = {};
-
   for (const [key, value] of formData) {
     jsObject[key] = value;
   }
@@ -15,53 +12,30 @@ function toJsObj(formData) {
   return jsObject;
 }
 
-// HIDE AN ELEMENT
-function hide_el() {
-  var hideli = document.getElementById("hidelist");
-
-  if (hideli.style.display === "block") {
-    hideli.style.display = "none";
-  } else {
-    hideli.style.display = "block";
-  }
-}
-
 /**========================================================================
- **                           filterfunction()
- *?  Filter modal panel via text search box
+ **                           validateForm()
+ *?  Function to validate form fields are not empty
+ *? qselector: element id or class using queryselector format
  *========================================================================**/
 
-// FILTER SEARCH TEXT BOX
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("searchbox");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("modalpanel");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
+function validateForm(qselector) {
+  // select form element to check data
+  const formElement = document.querySelector(qselector);
+  let formData = toJsObj(new FormData(formElement));
+
+  notvalid = [];
+  for (let name in formData) {
+    if (formData[name] === "") {
+      console.log(`Blank field: ${name}, ${formData[name]}`);
+      document.querySelector(`#${name}`).classList.add("is-danger");
+      notvalid.push(name);
     } else {
-      a[i].style.display = "none";
+      document.querySelector(`#${name}`).classList.remove("is-danger");
     }
   }
-}
 
-/**========================================================================
- **                           showmodal()
- *?  Function to activate modals based on modal element id
- *========================================================================**/
-
-function focus() {
-  document.getElementById("searchbox").focus();
-}
-
-function showmodal(modalid) {
-  mod = document.getElementById(modalid);
-  mod.classList.add("is-active");
-
-  focus();
+  // console.log(notvalid);
+  return notvalid;
 }
 
 /**========================================================================
@@ -85,17 +59,17 @@ function closemodal(modalid) {
  *?  Show context menu on right click
  *========================================================================**/
 function show_cmenu() {
+  // ! Not sure why the map.addeventlistener (contectmenu) event will not display cmenu?
+
   window.addEventListener("contextmenu", (e) => {
     e.preventDefault();
 
     const cm = document.querySelector(".custom-cm");
     cm.style.display = "block";
 
-    console.log(e);
+    // console.log(e.x);
 
-    // Template literal
-    // alert(`${e.y}, ${e.x}`);
-
+    // TODO: Offset, not working correctly when put near right or bottom window edge
     cm.style.top =
       e.y + cm.offsetHeight > window.innerHeight
         ? window.innerHeight - cm.offsetHeight
@@ -104,7 +78,6 @@ function show_cmenu() {
       e.x + cm.offsetWidth > window.innerWidth
         ? window.innerWidth - cm.offsetWidth
         : e.x + "px";
-    console.log(cm);
   });
 }
 
@@ -120,34 +93,63 @@ function close_cmenu() {
 }
 
 /**========================================================================
+ **                           showSignForm()
+ *?  js to show sign form when back button or tab clicked
+ *========================================================================**/
+
+function showSignForm() {
+  document.querySelector("[name=InstallType]").disabled = true;
+  document.querySelector("[id=SupportDate]").disabled = true;
+  document.querySelector("[name=SupportType]").disabled = true;
+
+  document.querySelectorAll(".supportform").forEach((element) => {
+    element.classList.add("is-hidden");
+  });
+
+  document.querySelectorAll(".addcancel").forEach((element) => {
+    element.classList.add("is-hidden");
+  });
+
+  document.querySelectorAll(".signform").forEach((element) => {
+    element.classList.remove("is-hidden");
+  });
+
+  // Set tabs
+  document.getElementById("suptab").classList.remove("is-active");
+  document.getElementById("signtab").classList.add("is-active");
+}
+
+/**========================================================================
  **                           tosigns()
  *?  js for next button on add support form; hide and un-hide elements
  *========================================================================**/
+
 function tosigns() {
-  nextcontrol = document.getElementById("next_button");
+  // TODO: Tabs, Implement click event to trigger showSupForm or ShowsignForm func; create class for btn and tab
+  supcontrol = document.getElementById("addsup_button");
 
-  nextcontrol.addEventListener("click", (e) => {
+  supcontrol.addEventListener("click", (e) => {
+    // Validate Add Support Form
+    const errors = validateForm("#addsup_form");
+    if (errors.length > 0) {
+      // Stop process with return if fields empty
+      return;
+    }
+
+    // Send http request with data to add support
     addsupport();
-    document.querySelectorAll(".supportform").forEach((element) => {
-      element.classList.add("is-hidden");
-    });
 
-    document.querySelectorAll(".signform").forEach((element) => {
-      element.classList.remove("is-hidden");
-    });
-
-    document.getElementById("suptab").classList.remove("is-active");
-    document.getElementById("signtab").classList.add("is-active");
+    // Hide/un-hide elements for adding sign info
+    showSignForm();
   });
 }
 
 /**========================================================================
- **                           resetform()
- *?  js to reset add support form back; used in different cases
+ **                           showSupForm()
+ *?  js to show support form when back button or tab clicked
  *========================================================================**/
 
-// TODO figure out how to export function to use in map.js
-function resetform() {
+function showSupForm() {
   document.querySelectorAll(".signform").forEach((element) => {
     element.classList.add("is-hidden");
   });
@@ -169,7 +171,7 @@ function tosupport() {
   nextcontrol = document.getElementById("back_button");
 
   nextcontrol.addEventListener("click", (e) => {
-    resetform();
+    showSupForm();
   });
 }
 
@@ -178,7 +180,7 @@ function tosupport() {
  *?  js for plus sign icon to un-hide add sign form elements
  *========================================================================**/
 
-//  TODO more logic needed to process adding sign to sign table and hiding elements
+//  TODO: Sign Form, more logic needed to process adding sign to sign table and hiding elements
 function plussign() {
   plus = document.getElementById("plussign");
 
@@ -198,7 +200,7 @@ function plussign() {
  *?  js for plus sign icon to un-hide add sign form elements
  *========================================================================**/
 
-//  TODO more logic needed to process adding sign to sign table and hiding elements
+//  TODO: Table, more logic needed to process adding sign to sign table and hiding elements
 function xcircle() {
   plus = document.getElementById("xcircle");
 
@@ -215,15 +217,16 @@ function xcircle() {
   });
 }
 
-// /**==============================================
-//  **              addsupport()
-//  *?  Add new support to DB
-//  *=============================================**/
+/**========================================================================
+ **                           addsupport()
+ *?   Add new support to DB
+ *========================================================================**/
 
 function addsupport() {
-  // event.preventDefault();
-
+  // remove disabled on latlng to get value
   document.getElementById("latlng").disabled = false;
+
+  // get all formdata
   const formElement = document.querySelector("#addsup_form");
   let formData = toJsObj(new FormData(formElement));
 
@@ -251,7 +254,6 @@ function addsupport() {
  *========================================================================**/
 
 window.onload = function () {
-  // show_cmenu();
   closemodal("addsup_modal");
   closemodal("modal1");
   close_cmenu();
@@ -260,33 +262,3 @@ window.onload = function () {
   plussign();
   xcircle();
 };
-
-// POPULATE A SELECT BOX VIA MODAL
-// function addoption(opt_value) {
-//   let msel = document.getElementById("s2");
-//   // go by: (<option value="volvo">Volvo</option>)
-
-//   // CLEAR ANY EXISITNG OPTIONS FIRST
-//   while (msel.firstChild) {
-//     msel.removeChild(msel.firstChild);
-//   }
-
-//   //  More secure way to add html versus 'innerhtml'
-//   // the below does not work becasue material css uses
-//   const opt = document.createElement("option");
-//   opt.innerText = opt_value;
-//   opt.value = opt_value;
-//   opt.selected = true;
-//   // opt.className = "red-text";
-//   msel.append(opt);
-
-//   // Re-init FormSelect to show appened item
-//   M.FormSelect.init(msel);
-
-//   // let dd = M.FormSelect.getInstance(msel);
-
-//   // console.log(dd.getSelectedValues());
-
-//   let mod = document.getElementById("modal1");
-//   M.Modal.getInstance(mod).close();
-// }

@@ -1,6 +1,3 @@
-//TODO how do i import function? srcing app.js at index.htl causing issue should be type module as well?
-// import { resetform } from "./app.js";
-
 // INITIALIZE GOOGLE MAP
 function initMap() {
   // MAP OPTIONS PASSED TO new Map instance
@@ -11,10 +8,10 @@ function initMap() {
 
   const map = new google.maps.Map(document.getElementById("map"), options);
 
-  // TODO Convert to axios function?
+  // TODO: Fetch Markers, Convert to axios function?
   /**========================================================================
-   *                             Fetch Signs from Database
-   *  Place markers on map
+   * *                            Fetch All Signs from Database
+   * ? Place existing markers on map
    *========================================================================**/
 
   // fetch("http://127.0.0.1:8000/get_allsigns")
@@ -54,8 +51,9 @@ function initMap() {
   //   });
 
   /**========================================================================
-   *                             Context Menu Code
-   *
+   * *                            Context Menu Listener
+   * ? Add map Listener to show context menu; also handle code when add support
+   * ? option clicked. This code needs to happen here t
    *========================================================================**/
   map.addListener("contextmenu", (e) => {
     // SHOW CONTEXT MENU
@@ -65,28 +63,11 @@ function initMap() {
     item = document.querySelector("#addsup_item");
     item.addEventListener("click", (event) => {
       // ACTIVATE ADD SUPPORT MODAL
-      mod = document.getElementById("addsup_modal");
-      mod.classList.add("is-active");
+      document.getElementById("addsup_modal").classList.add("is-active");
 
       // CLEAR FORMS OF ANY PREVIOUS DATA
       document.getElementById("addsup_form").reset();
       document.getElementById("addsign_form").reset();
-
-      // // HIDE SIGN FORM
-      // document.querySelectorAll(".signform").forEach((element) => {
-      //   element.classList.add("is-hidden");
-      // });
-
-      // // SHOW SUPPORT FORM
-      // // TODO check that it does not add twice
-      // document.querySelectorAll(".supportform").forEach((element) => {
-      //   element.classList.remove("is-hidden");
-      // });
-
-      // // RESET TABS
-      // document.getElementById("signtab").classList.remove("is-active");
-      // document.getElementById("suptab").classList.add("is-active");
-      resetform();
 
       // INSERT LAT&lONG INTO TEXT BOX
       latlng_json = e.latLng.toJSON();
@@ -100,8 +81,13 @@ function initMap() {
   /*==== END OF initMap() ====*/
 }
 
-// TEST FUNC TO PLACE NEW MARKERS
-function placeMarkerAndPanTo(latLng, map) {
+/**========================================================================
+ **                           addMarker()
+ *?  Create new marker on map from add support form
+ * ! Not used yet: trigger after close add support form
+ *========================================================================**/
+
+function addMarker(latLng, map) {
   const mark1 = new google.maps.Marker({
     position: latLng,
     map: map,
@@ -109,32 +95,4 @@ function placeMarkerAndPanTo(latLng, map) {
   });
   map.panTo(latLng);
   // console.log(mark1.getPosition());
-}
-
-// TEST FUNC FOR CONTEXT.HTML; ADD SUPPORT ONCLICK EVENT
-function support_add() {
-  alert("Support Added");
-
-  // fetch("http://127.0.0.1:8000/get_allsigns")
-  //   .then((res) => res.json())
-  //   .then((data) => console.log(data));
-}
-
-/**========================================================================
- **                           show_cmenu()
- *?  show context menu on right click
- *========================================================================**/
-function show_cmenu() {
-  const cm = document.querySelector(".custom-cm");
-  cm.style.display = "block";
-
-  // keep dm from edge of screen
-  cm.style.top =
-    e.y + cm.offsetHeight > window.innerHeight
-      ? window.innerHeight - cm.offsetHeight
-      : e.y + "px";
-  cm.style.left =
-    e.x + cm.offsetWidth > window.innerWidth
-      ? window.innerWidth - cm.offsetWidth
-      : e.x + "px";
 }
