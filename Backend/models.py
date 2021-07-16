@@ -36,7 +36,6 @@ class Support(Base):
 class Sign(Base):
     __tablename__ = "signs"
 
-    # TODO Autoincrement not registering in db settngs for id; view via db gui??
     SignID = Column(Integer, primary_key=True, index=True, autoincrement=True)
     SignClass = Column(String)
     SignCode = Column(String)
