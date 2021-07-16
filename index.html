@@ -102,7 +102,7 @@
               </div>
             </div>
 
-            <!-- Install Type -->
+            <!-- Install Type (Support) -->
             <div class="field">
               <label class="label">Install Type</label>
               <div class="control">
@@ -134,7 +134,7 @@
               </div>
             </div>
 
-            <!-- Date -->
+            <!-- Support Date -->
             <div class="field">
               <label class="label" for="SupportDate">Install Date</label>
               <div class="control">
@@ -185,16 +185,20 @@
               <thead>
                 <tr>
                   <th>SignID</th>
+                  <th>Install Type</th>
+                  <th>Class</th>
                   <th>Sign Code</th>
                   <th>Description</th>
                   <th>Size</th>
-                  <th>Last Changeout</th>
+                  <th>Install Date</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>432</td>
+                  <td>Existing</td>
+                  <td>Regulatory</td>
                   <td>R1-1</td>
                   <td>Stop Sign</td>
                   <td>Oct 30"</td>
@@ -225,12 +229,31 @@
                 style="font-size: 1.5rem; color: cornflowerblue"
                 id="xcircle"
               ></i>
+
+              <!-- Install Type -->
+              <div class="field">
+                <label class="label">Install Type</label>
+                <div class="control">
+                  <div class="select" id="InstallType">
+                    <select name="InstallType">
+                      <option></option>
+                      <!-- TODO: Existing Sup Date, if existing then cost=0, set date = 1/1/1980 & disable -->
+
+                      <option>Existing</option>
+                      <option>Maintenance</option>
+                      <option>Knockdown</option>
+                      <option>New</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
               <!-- TODO: Select Options, Get options from DB? -->
               <div class="field">
                 <label class="label">Class</label>
                 <div class="control">
                   <div class="select">
-                    <select>
+                    <select name="SignClass">
                       <option></option>
                       <option>Regulatory</option>
                       <option>Warning</option>
@@ -241,24 +264,10 @@
               </div>
 
               <div class="field">
-                <label class="label">Sub Class</label>
-                <div class="control">
-                  <div class="select">
-                    <select>
-                      <option></option>
-                      <option>Stop&Yield</option>
-                      <option>Speed</option>
-                      <option>School</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="field">
                 <label class="label">Sign Code</label>
                 <div class="control">
                   <div class="select">
-                    <select>
+                    <select name="SignCode">
                       <option></option>
                       <option>R1-1</option>
                       <option>W1-1</option>
@@ -271,7 +280,12 @@
               <div class="field">
                 <label class="label">Description</label>
                 <div class="control">
-                  <input class="input" type="text" placeholder="Description" />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Description"
+                    name="Description"
+                  />
                 </div>
               </div>
 
@@ -279,7 +293,7 @@
                 <label class="label">Size</label>
                 <div class="control">
                   <div class="select">
-                    <select>
+                    <select name="Size">
                       <option></option>
                       <option>Oct 30"</option>
                       <option>18"x6"</option>
@@ -292,14 +306,21 @@
               <div class="field">
                 <label class="label" for="install2">Install Date</label>
                 <div class="control">
-                  <input class="input" type="date" id="install2" />
+                  <input
+                    class="input"
+                    type="date"
+                    id="install2"
+                    name="SignDate"
+                  />
                 </div>
               </div>
               <div class="field">
                 <p class="control">
                   <!-- TODO:  Bad Behave, Why does button reload entire website when pressed, default behavior?? -->
-                  <!-- TODO: **Add Sign Btn, Need to add JS for button; SEND INFO TO BACKEND AND POPULATE TABLE WITH SIGNID *** -->
-                  <button class="button is-success">Add Sign</button>
+                  <!-- TODO: **Add Sign Btn, Need to add JS populate table with sign -->
+                  <button class="button is-success" id="addSignBtn">
+                    Add Sign
+                  </button>
                 </p>
               </div>
             </form>
@@ -310,25 +331,20 @@
         <footer class="modal-card-foot">
           <!-- TODO: Modal card foot,  is not allowing for right align on buttons -->
           <div class="field is-grouped is-grouped-right">
-            <p class="control is-hidden signform">
-              <button class="button is-link" id="back_button">Back</button>
-            </p>
-            <p class="control addcancel">
+            <p class="control supportform">
               <button class="button closemodal" id="cancel_button">
                 Cancel
               </button>
             </p>
-            <p class="control addcancel">
-              <button class="button is-success" id="addsup_button">
-                Add Support
-              </button>
-            </p>
-            <!-- <p class="control supportform">
+            <p class="control supportform">
               <button class="button is-link" id="next_button">Next</button>
-            </p> -->
-            <p class="control is-hidden is-pulled-right signform">
-              <button class="button is-success" id="finish_button">
-                Finish
+            </p>
+            <p class="control is-hidden signform">
+              <button class="button is-link" id="back_button">Back</button>
+            </p>
+            <p class="control signform is-hidden">
+              <button class="button is-success" id="save_button" disabled>
+                Save & Close
               </button>
             </p>
           </div>

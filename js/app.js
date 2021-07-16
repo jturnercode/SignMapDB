@@ -39,6 +39,28 @@ function validateForm(qselector) {
 }
 
 /**========================================================================
+ **                           supportType()
+ *?  Function to monitor install type selected; if existing pole, default to 2000-10-01
+ *========================================================================**/
+
+function supportType() {
+  // ADD CLICK EVENT LISTENER TO 'closemodal' CLASS
+  instype = document.querySelector("#InstallType");
+
+  instype.addEventListener("change", (event) => {
+    console.log("change", event.target.value);
+    installDate = document.querySelector("#SupportDate");
+    if (event.target.value === "Existing") {
+      installDate.value = "2000-10-01";
+      installDate.disabled = true;
+    } else {
+      installDate.value = "";
+      installDate.disabled = false;
+    }
+  });
+}
+
+/**========================================================================
  **                           closemodal()
  *?  Function to de-activate modal based on modal element id
  *========================================================================**/
@@ -98,15 +120,7 @@ function close_cmenu() {
  *========================================================================**/
 
 function showSignForm() {
-  document.querySelector("[name=InstallType]").disabled = true;
-  document.querySelector("[id=SupportDate]").disabled = true;
-  document.querySelector("[name=SupportType]").disabled = true;
-
   document.querySelectorAll(".supportform").forEach((element) => {
-    element.classList.add("is-hidden");
-  });
-
-  document.querySelectorAll(".addcancel").forEach((element) => {
     element.classList.add("is-hidden");
   });
 
@@ -126,7 +140,7 @@ function showSignForm() {
 
 function tosigns() {
   // TODO: Tabs, Implement click event to trigger showSupForm or ShowsignForm func; create class for btn and tab
-  supcontrol = document.getElementById("addsup_button");
+  supcontrol = document.getElementById("next_button");
 
   supcontrol.addEventListener("click", (e) => {
     // Validate Add Support Form
@@ -135,9 +149,6 @@ function tosigns() {
       // Stop process with return if fields empty
       return;
     }
-
-    // Send http request with data to add support
-    addsupport();
 
     // Hide/un-hide elements for adding sign info
     showSignForm();
@@ -191,17 +202,16 @@ function plussign() {
 
     document.querySelector("#back_button").classList.add("is-hidden");
     document.querySelector("#cancel_button").classList.add("is-hidden");
-    document.querySelector("#finish_button").classList.add("is-hidden");
   });
 }
 
 /**========================================================================
- **                           closexcircle()
- *?  js for plus sign icon to un-hide add sign form elements
+ **                           xsign()
+ *?  js for 'x' icon to hide add sign form elements
  *========================================================================**/
 
 //  TODO: Table, more logic needed to process adding sign to sign table and hiding elements
-function xcircle() {
+function xsign() {
   plus = document.getElementById("xcircle");
 
   plus.addEventListener("click", (e) => {
@@ -213,16 +223,15 @@ function xcircle() {
 
     document.querySelector("#back_button").classList.remove("is-hidden");
     document.querySelector("#cancel_button").classList.remove("is-hidden");
-    document.querySelector("#finish_button").classList.remove("is-hidden");
   });
 }
 
 /**========================================================================
- **                           addsupport()
- *?   Add new support to DB
+ **                           savedata()
+ *?   Save all new support and sign data to db; used by save and close button
  *========================================================================**/
 
-function addsupport() {
+function savedata() {
   // remove disabled on latlng to get value
   document.getElementById("latlng").disabled = false;
 
@@ -246,6 +255,31 @@ function addsupport() {
 }
 
 /**========================================================================
+ **                           addsignrow()
+ *?   Add sign row to table from form data in #addsign_form
+ *========================================================================**/
+
+function addsignrow() {
+  addBtn = document.getElementById("addSignBtn");
+
+  addBtn.addEventListener("click", (e) => {
+    // Prevent Default needed to prevent add sign button from trying to submit form
+    // this is default for last button in a html form element
+    e.preventDefault();
+    const formElement = document.querySelector("#addsign_form");
+    let formData = toJsObj(new FormData(formElement));
+
+    console.log(formData);
+  });
+}
+
+/**========================================================================
+ **                           addsignBtn()
+ *?  js for back button on add support form; hide and un-hide elements
+ *========================================================================**/
+function addsignBtn() {}
+
+/**========================================================================
  **                             Window.onload
  *
  *? ADD EVENT LISTENERS ONLOAD
@@ -260,5 +294,7 @@ window.onload = function () {
   tosigns();
   tosupport();
   plussign();
-  xcircle();
+  xsign();
+  supportType();
+  addsignrow();
 };

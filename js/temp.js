@@ -49,3 +49,12 @@ function showmodal(modalid) {
 
   document.getElementById("searchbox").focus();
 }
+
+/**========================================================================
+ **                           FUNCTION NAME
+ *?  temp code showing how to use queryselector with different css selectors
+ *========================================================================**/
+
+// document.querySelector("[name=InstallType]").disabled = true;
+// document.querySelector("[id=SupportDate]").disabled = true;
+// document.querySelector("[name=SupportType]").disabled = true;
