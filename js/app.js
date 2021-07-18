@@ -18,21 +18,26 @@ function toJsObj(formData) {
  *? qselector: element id or class using queryselector format
  *========================================================================**/
 
-function validateForm(qselector) {
-  // select form element to check data
-  const formElement = document.querySelector(qselector);
-  let formData = toJsObj(new FormData(formElement));
+function validateForm(cSelectors) {
+  // select form elements with class validate to check data
+  const formEls = document.querySelectorAll(cSelectors);
+  // console.log(formEls);
 
   notvalid = [];
-  for (let name in formData) {
-    if (formData[name] === "") {
-      console.log(`Blank field: ${name}, ${formData[name]}`);
-      document.querySelector(`#${name}`).classList.add("is-danger");
-      notvalid.push(name);
+
+  formEls.forEach((el) => {
+    if ((el.value === "") & (el.nodeName === "INPUT")) {
+      notvalid.push(el);
+      el.classList.add("is-danger");
+    } else if ((el.value === "") & (el.nodeName === "SELECT")) {
+      notvalid.push(el);
+      el.parentElement.classList.add("is-danger");
+    } else if (el.nodeName === "SELECT") {
+      el.parentElement.classList.remove("is-danger");
     } else {
-      document.querySelector(`#${name}`).classList.remove("is-danger");
+      el.classList.remove("is-danger");
     }
-  }
+  });
 
   // console.log(notvalid);
   return notvalid;
@@ -45,11 +50,11 @@ function validateForm(qselector) {
 
 function supportType() {
   // ADD CLICK EVENT LISTENER TO 'closemodal' CLASS
-  instype = document.querySelector("#InstallType");
+  instype = document.querySelector("#supinstall");
 
   instype.addEventListener("change", (event) => {
     console.log("change", event.target.value);
-    installDate = document.querySelector("#SupportDate");
+    installDate = document.querySelector("[name=SupportDate]");
     if (event.target.value === "Existing") {
       installDate.value = "2000-10-01";
       installDate.disabled = true;
@@ -144,7 +149,7 @@ function tosigns() {
 
   supcontrol.addEventListener("click", (e) => {
     // Validate Add Support Form
-    const errors = validateForm("#addsup_form");
+    const errors = validateForm("#addsup_form .validate");
     if (errors.length > 0) {
       // Stop process with return if fields empty
       return;
@@ -266,6 +271,13 @@ function addsignrow() {
     // Prevent Default needed to prevent add sign button from trying to submit form
     // this is default for last button in a html form element
     e.preventDefault();
+
+    const errors = validateForm("#addsign_form .validate");
+    if (errors.length > 0) {
+      // Stop process with return if fields empty
+      return;
+    }
+
     const formElement = document.querySelector("#addsign_form");
     let formData = toJsObj(new FormData(formElement));
 

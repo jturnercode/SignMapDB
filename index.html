@@ -106,11 +106,9 @@
             <div class="field">
               <label class="label">Install Type</label>
               <div class="control">
-                <div class="select" id="InstallType">
-                  <select name="InstallType">
+                <div class="select" id="supinstall">
+                  <select name="InstallType" class="validate">
                     <option></option>
-                    <!-- TODO: Existing Sup Date, if existing then cost=0, set date = 1/1/1980 & disable -->
-
                     <option>Existing</option>
                     <option>New</option>
                   </select>
@@ -122,8 +120,8 @@
             <div class="field">
               <label class="label">Support Type</label>
               <div class="control">
-                <div class="select" id="SupportType">
-                  <select name="SupportType">
+                <div class="select">
+                  <select name="SupportType" class="validate">
                     <option></option>
                     <option>Standard Pole</option>
                     <option>Light Pole</option>
@@ -138,12 +136,7 @@
             <div class="field">
               <label class="label" for="SupportDate">Install Date</label>
               <div class="control">
-                <input
-                  class="input"
-                  type="date"
-                  id="SupportDate"
-                  name="SupportDate"
-                />
+                <input class="input validate" type="date" name="SupportDate" />
               </div>
             </div>
 
@@ -234,11 +227,9 @@
               <div class="field">
                 <label class="label">Install Type</label>
                 <div class="control">
-                  <div class="select" id="InstallType">
-                    <select name="InstallType">
+                  <div class="select">
+                    <select name="InstallType" class="validate">
                       <option></option>
-                      <!-- TODO: Existing Sup Date, if existing then cost=0, set date = 1/1/1980 & disable -->
-
                       <option>Existing</option>
                       <option>Maintenance</option>
                       <option>Knockdown</option>
@@ -253,7 +244,7 @@
                 <label class="label">Class</label>
                 <div class="control">
                   <div class="select">
-                    <select name="SignClass">
+                    <select name="SignClass" class="validate">
                       <option></option>
                       <option>Regulatory</option>
                       <option>Warning</option>
@@ -267,7 +258,7 @@
                 <label class="label">Sign Code</label>
                 <div class="control">
                   <div class="select">
-                    <select name="SignCode">
+                    <select name="SignCode" class="validate">
                       <option></option>
                       <option>R1-1</option>
                       <option>W1-1</option>
@@ -281,7 +272,7 @@
                 <label class="label">Description</label>
                 <div class="control">
                   <input
-                    class="input"
+                    class="input validate"
                     type="text"
                     placeholder="Description"
                     name="Description"
@@ -293,7 +284,7 @@
                 <label class="label">Size</label>
                 <div class="control">
                   <div class="select">
-                    <select name="Size">
+                    <select name="Size" class="validate">
                       <option></option>
                       <option>Oct 30"</option>
                       <option>18"x6"</option>
@@ -304,19 +295,18 @@
               </div>
 
               <div class="field">
-                <label class="label" for="install2">Install Date</label>
+                <label class="label" for="signdate">Install Date</label>
                 <div class="control">
                   <input
-                    class="input"
+                    class="input validate"
                     type="date"
-                    id="install2"
                     name="SignDate"
+                    id="signdate"
                   />
                 </div>
               </div>
               <div class="field">
                 <p class="control">
-                  <!-- TODO:  Bad Behave, Why does button reload entire website when pressed, default behavior?? -->
                   <!-- TODO: **Add Sign Btn, Need to add JS populate table with sign -->
                   <button class="button is-success" id="addSignBtn">
                     Add Sign
