@@ -26,16 +26,16 @@ function validateForm(cSelectors) {
   notvalid = [];
 
   formEls.forEach((el) => {
-    if ((el.value === "") & (el.nodeName === "INPUT")) {
+    if ((el.value !== "") & (el.nodeName === "SELECT")) {
+      el.parentElement.classList.remove("is-danger");
+    } else if (el.value !== "") {
+      el.classList.remove("is-danger");
+    } else if ((el.value === "") & (el.nodeName === "INPUT")) {
       notvalid.push(el);
       el.classList.add("is-danger");
     } else if ((el.value === "") & (el.nodeName === "SELECT")) {
       notvalid.push(el);
       el.parentElement.classList.add("is-danger");
-    } else if (el.nodeName === "SELECT") {
-      el.parentElement.classList.remove("is-danger");
-    } else {
-      el.classList.remove("is-danger");
     }
   });
 
