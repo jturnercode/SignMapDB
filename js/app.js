@@ -206,7 +206,7 @@ function plussign() {
     });
 
     document.querySelector("#back_button").classList.add("is-hidden");
-    document.querySelector("#cancel_button").classList.add("is-hidden");
+    document.querySelector("#save_button").classList.add("is-hidden");
   });
 }
 
@@ -227,7 +227,7 @@ function xsign() {
     document.getElementById("addsign_form").reset();
 
     document.querySelector("#back_button").classList.remove("is-hidden");
-    document.querySelector("#cancel_button").classList.remove("is-hidden");
+    document.querySelector("#save_button").classList.remove("is-hidden");
   });
 }
 
@@ -274,14 +274,40 @@ function addsignrow() {
 
     const errors = validateForm("#addsign_form .validate");
     if (errors.length > 0) {
-      // Stop process with return if fields empty
+      // Stop func if form field empty
       return;
     }
 
     const formElement = document.querySelector("#addsign_form");
     let formData = toJsObj(new FormData(formElement));
-
     console.log(formData);
+
+    tbodyEl = document.querySelector("#add_table");
+
+    tbodyEl.innerHTML += `
+    <tr>
+    <td>-</td>
+    <td>${formData["InstallType"]}</td>
+    <td>${formData["SignClass"]}</td>
+    <td>${formData["SignCode"]}</td>
+    <td>${formData["Description"]}</td>
+    <td>${formData["Size"]}</td>
+    <td>${formData["SignDate"]}</td>
+    <td>
+      <i class="hovclass bi bi-pencil"></i>
+      <i class="hovclass bi bi-trash"></i>
+    </td>
+  </tr>
+    `;
+
+    document.querySelectorAll(".asignform").forEach((element) => {
+      element.classList.add("is-hidden");
+    });
+
+    document.getElementById("addsign_form").reset();
+
+    document.querySelector("#back_button").classList.remove("is-hidden");
+    document.querySelector("#save_button").classList.remove("is-hidden");
   });
 }
 
