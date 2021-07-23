@@ -53,7 +53,7 @@ function supportType() {
   instype = document.querySelector("#supinstall");
 
   instype.addEventListener("change", (event) => {
-    console.log("change", event.target.value);
+    // console.log("change", event.target.value);
     installDate = document.querySelector("[name=SupportDate]");
     if (event.target.value === "Existing") {
       installDate.value = "2000-10-01";
@@ -232,34 +232,6 @@ function xsign() {
 }
 
 /**========================================================================
- **                           savedata()
- *?   Save all new support and sign data to db; used by save and close button
- *========================================================================**/
-
-function savedata() {
-  // remove disabled on latlng to get value
-  document.getElementById("latlng").disabled = false;
-
-  // get all formdata
-  const formElement = document.querySelector("#addsup_form");
-  let formData = toJsObj(new FormData(formElement));
-
-  document.getElementById("latlng").disabled = true;
-  console.log(formData);
-
-  // *appends a js object (not json)
-  axios
-    .post("http://127.0.0.1:8000/CreateSupport", formData)
-    .then((response) => {
-      // *can add more than one function here; note {} syntax after =>
-      // console.log(response.data["SupportID"]);
-      document.getElementById("signid").value = response.data["SupportID"];
-      document.getElementById("cost").value = response.data["Cost"];
-    })
-    .catch((err) => console.log(err, err.response));
-}
-
-/**========================================================================
  **                           addsignrow()
  *?   Add sign row to table from form data in #addsign_form
  *========================================================================**/
@@ -282,7 +254,7 @@ function addsignrow() {
     let formData = toJsObj(new FormData(formElement));
     console.log(formData);
 
-    tbodyEl = document.querySelector("#add_table");
+    tbodyEl = document.querySelector("#sign_table");
 
     tbodyEl.innerHTML += `
     <tr>
@@ -294,10 +266,10 @@ function addsignrow() {
     <td>${formData["Size"]}</td>
     <td>${formData["SignDate"]}</td>
     <td>
-      <i class="hovclass bi bi-pencil"></i>
-      <i class="hovclass bi bi-trash"></i>
+    <i class="hovclass bi bi-pencil"></i>
+    <i class="hovclass bi bi-trash"></i>
     </td>
-  </tr>
+    </tr>
     `;
 
     document.querySelectorAll(".asignform").forEach((element) => {
@@ -308,14 +280,77 @@ function addsignrow() {
 
     document.querySelector("#back_button").classList.remove("is-hidden");
     document.querySelector("#save_button").classList.remove("is-hidden");
+    document.querySelector("#save_button").disabled = false;
   });
 }
 
 /**========================================================================
- **                           addsignBtn()
- *?  js for back button on add support form; hide and un-hide elements
+ **                           savedata()
+ *?   Save all new support and sign data to db; used by save and close button
  *========================================================================**/
-function addsignBtn() {}
+
+function savedata() {
+  sb = document.querySelector("#save_button");
+
+  sb.addEventListener("click", () => {
+    // Remove enable disabled inputs on support form to get values via FormData method
+    document.getElementById("latlng").disabled = false;
+    document.querySelector("[name=SupportDate]").disabled = false;
+
+    // Get all formdata with name attribute
+    const formElement = document.querySelector("#addsup_form");
+    let formData = toJsObj(new FormData(formElement));
+
+    // Disable LatLng again
+    document.getElementById("latlng").disabled = true;
+    document.querySelector("[name=SupportDate]").disabled = true;
+    console.log(formData);
+
+    // Var to hold table data
+    let signs = [];
+
+    // *appends a js object (not json)
+    axios
+      .post("http://127.0.0.1:8000/CreateSupport", formData)
+      .then((response) => {
+        // *can add more than one function here; note {} syntax after =>
+        // console.log(response.data["SupportID"]);
+        document.getElementById("suppid").value = response.data["SupportID"];
+        document.getElementById("cost").value = response.data["Cost"];
+        // const suppid = document.getElementById("suppid").value;
+        const suppid = response.data["SupportID"];
+
+        // Get table data to into js object to pass as json
+        const trEls = document.querySelectorAll("#sign_table tr");
+
+        trEls.forEach((tr) => {
+          // *CERTAIN DOM ELEMENTS LIKE TABLES HAVE SPECIAL PROPERTIES FOR CONVIENENCE
+          // *ROWS HAVE THE 'cells' PROPERTY TO ACCESS TD ELEMENT LIKE AN ARRAY
+          // *https://javascript.info/dom-navigation#dom-navigation-tables
+          // console.log(tr.cells[3].textContent)
+
+          signs.push({
+            SupportFK: suppid,
+            InstallType: tr.cells[1].textContent,
+            SignClass: tr.cells[2].textContent,
+            SignCode: tr.cells[3].textContent,
+            Description: tr.cells[4].textContent,
+            Size: tr.cells[5].textContent,
+            SignDate: tr.cells[6].textContent,
+          });
+        }); // End of forEach
+        console.log(`SIGNS: ${JSON.stringify(signs)}`);
+
+        // SECOND REQUEST TO ADD SIGNS TO DB WITH ASSOCIATED SUPPORT ID
+        axios.post("http://127.0.0.1:8000/AddSign", signs).then((res) => {
+          console.log(res);
+        });
+      })
+      .catch((err) => console.log(err, err.response));
+
+    document.getElementById("add_modal").classList.remove("is-active");
+  }); // END OF CLICK EVENT
+} // END OF SAVEDATA FUNCTION
 
 /**========================================================================
  **                             Window.onload
@@ -326,7 +361,7 @@ function addsignBtn() {}
  *========================================================================**/
 
 window.onload = function () {
-  closemodal("addsup_modal");
+  closemodal("add_modal");
   closemodal("modal1");
   close_cmenu();
   tosigns();
@@ -335,4 +370,5 @@ window.onload = function () {
   xsign();
   supportType();
   addsignrow();
+  savedata();
 };

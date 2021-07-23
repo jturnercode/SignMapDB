@@ -60,7 +60,7 @@
 
     <!--=============================== ADD SUPPORT/SIGNS MODAL =============================-->
 
-    <div class="modal" id="addsup_modal">
+    <div class="modal" id="add_modal">
       <div class="modal-background"></div>
       <div class="modal-card" style="width: 75%">
         <!-- TODO: Modal header, Fix modal header not allowing fullwidth for tabs -->
@@ -96,9 +96,9 @@
             <!-- SignID -->
             <!-- Note: Input to hold signid after post request -->
             <div class="field">
-              <label class="label" for="signid">Sign ID:</label>
+              <label class="label" for="suppid">Support ID:</label>
               <div class="control">
-                <input class="input" type="text" id="signid" disabled />
+                <input class="input" type="text" id="suppid" disabled />
               </div>
             </div>
 
@@ -187,7 +187,7 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody id="add_table"></tbody>
+              <tbody id="sign_table"></tbody>
             </table>
           </div>
 
@@ -292,7 +292,6 @@
               </div>
               <div class="field">
                 <p class="control">
-                  <!-- TODO: **Add Sign Btn, Need to add JS populate table with sign -->
                   <button class="button is-success" id="addSignBtn">
                     Add Sign
                   </button>

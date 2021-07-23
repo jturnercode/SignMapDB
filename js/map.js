@@ -63,8 +63,9 @@ function initMap() {
     item = document.querySelector("#addsup_item");
     item.addEventListener("click", (event) => {
       // ACTIVATE ADD SUPPORT MODAL
-      document.getElementById("addsup_modal").classList.add("is-active");
+      document.getElementById("add_modal").classList.add("is-active");
 
+      // TODO: reset form to support tab, clear table of previous data
       // CLEAR FORMS OF ANY PREVIOUS DATA
       document.getElementById("addsup_form").reset();
       document.getElementById("addsign_form").reset();

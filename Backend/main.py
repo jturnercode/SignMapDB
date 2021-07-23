@@ -94,21 +94,27 @@ def get_supports(db: Session = Depends(get_db)):
 
 # POST SIGN TO DATABASE
 @app.post('/AddSign', tags=["Signs"])
-def create_sign(request: schemas.AddSign, db: Session = Depends(get_db)):
+def create_sign(request: List[schemas.AddSign], db: Session = Depends(get_db)):
 
     # TODO Calc ChangeOut Date and add to db here
-    # Create sign maintenace record associated with SignID (SignFK)
-    add_sign = models.Sign(SupportFK=request.SupportFK, SignClass=request.SignClass, SignCode=request.SignCode,
-                           Description=request.Description, Size=request.Size, InstallType=request.InstallType,
-                           SignDate=request.SignDate, Cost=request.Cost)
 
-    db.add(add_sign)
-    db.commit()
-    db.refresh(add_sign)
+    print(request)
 
-    # print(f'this is the signID: {add_sign.SignID}')
+    for sign in request:
+        # Create sign maintenace record associated with SignID (SignFK)
+        add_sign = models.Sign(SupportFK=sign.SupportFK, SignClass=sign.SignClass, SignCode=sign.SignCode,
+                               Description=sign.Description, Size=sign.Size, InstallType=sign.InstallType,
+                               SignDate=sign.SignDate)
 
-    return add_sign
+        # TODO: Calculate and Add cost & ChangeDate to commit    , Cost=sign.Cost
+
+        db.add(add_sign)
+        db.commit()
+        db.refresh(add_sign)
+
+        print(f'this is the signID: {add_sign.SignID}')
+
+    return "Good"
 
 
 # GET ALL SIGNS IN DATABASE

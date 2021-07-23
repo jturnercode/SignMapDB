@@ -28,7 +28,6 @@ class AddSign(BaseModel):
     Description: str
     Size: str
     SignDate: str
-    Cost: float
     InstallType: str
 
 
