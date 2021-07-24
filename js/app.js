@@ -254,7 +254,7 @@ function addsignrow() {
     let formData = toJsObj(new FormData(formElement));
     console.log(formData);
 
-    tbodyEl = document.querySelector("#sign_table");
+    tbodyEl = document.querySelector("#sign_tbody");
 
     tbodyEl.innerHTML += `
     <tr>
@@ -321,7 +321,7 @@ function savedata() {
         const suppid = response.data["SupportID"];
 
         // Get table data to into js object to pass as json
-        const trEls = document.querySelectorAll("#sign_table tr");
+        const trEls = document.querySelectorAll("#sign_tbody tr");
 
         trEls.forEach((tr) => {
           // *CERTAIN DOM ELEMENTS LIKE TABLES HAVE SPECIAL PROPERTIES FOR CONVIENENCE
@@ -353,6 +353,22 @@ function savedata() {
 } // END OF SAVEDATA FUNCTION
 
 /**========================================================================
+ **                           delTableRow()
+ *?  js to delete row from signs table
+ *========================================================================**/
+
+function delTableRow() {
+  signTblEl = document.getElementById("sign_table");
+
+  signTblEl.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("bi-trash")) {
+      return;
+    }
+    e.target.closest("tr").remove();
+  });
+}
+
+/**========================================================================
  **                             Window.onload
  *
  *? ADD EVENT LISTENERS ONLOAD
@@ -371,4 +387,5 @@ window.onload = function () {
   supportType();
   addsignrow();
   savedata();
+  delTableRow();
 };
