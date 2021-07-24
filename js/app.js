@@ -358,13 +358,12 @@ function savedata() {
  *========================================================================**/
 
 function delTableRow() {
-  signTblEl = document.getElementById("sign_table");
+  tbodyEl = document.getElementById("sign_tbody");
 
-  signTblEl.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("bi-trash")) {
-      return;
+  tbodyEl.addEventListener("click", (e) => {
+    if (e.target.classList.contains("bi-trash")) {
+      e.target.closest("tr").remove();
     }
-    e.target.closest("tr").remove();
   });
 }
 
