@@ -56,7 +56,7 @@ def get_db():
 @app.post('/CreateSupport', tags=["Supports"])
 def create_support(request: schemas.AddSupport, db: Session = Depends(get_db)):
 
-    # TODO Add logic and Calculate cost based on InstallType/Support Type;
+    # TODO Add logic and Calculate cost based on Support Type;
     # TODO Import Cost from db and store as variables to use as needed
 
     SupCost = 0.00
@@ -68,7 +68,7 @@ def create_support(request: schemas.AddSupport, db: Session = Depends(get_db)):
         SupCost = 0.00
 
     # * HERE THE PYDANTIC SCHEMA VALUES ARE TRANFERED TO A SQLALCHEMY MODEL INSTANCE COMPATIBLE WITH DB
-    new_sup = models.Support(InstallType=request.InstallType, SupportType=request.SupportType, SupportDate=request.SupportDate,
+    new_sup = models.Support(SupportWork=request.SupportWork, SupportType=request.SupportType, SupportDate=request.SupportDate,
                              LatLng=request.LatLng, Cost=SupCost)
 
     db.add(new_sup)
@@ -102,8 +102,8 @@ def create_sign(request: List[schemas.AddSign], db: Session = Depends(get_db)):
 
     for sign in request:
         # Create sign maintenace record associated with SignID (SignFK)
-        add_sign = models.Sign(SupportFK=sign.SupportFK, SignClass=sign.SignClass, SignCode=sign.SignCode,
-                               Description=sign.Description, Size=sign.Size, InstallType=sign.InstallType,
+        add_sign = models.Sign(SupportFK=sign.SupportFK, SignWork=sign.SignWork, SignClass=sign.SignClass,
+                               SignCode=sign.SignCode,   Description=sign.Description, Size=sign.Size,
                                SignDate=sign.SignDate)
 
         # TODO: Calculate and Add cost & ChangeDate to commit    , Cost=sign.Cost

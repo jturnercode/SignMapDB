@@ -9,11 +9,11 @@ from typing import Optional, List
 
 # pydantic model for Sign Maint
 class SignMaint(BaseModel):
+    SignWork: str
     SignClass: str
     SignCode: str
     Description: str
     Size: str
-    SignInstall: str
     Cost: float
     Note: Optional[str]
 
@@ -23,12 +23,12 @@ class AddSign(BaseModel):
     # SupportID assocciated with each SignID
     SupportFK: int
 
+    SignWork: str
     SignClass: str
     SignCode: str
     Description: str
     Size: str
     SignDate: str
-    InstallType: str
 
 
 class SignModel(BaseModel):
@@ -44,18 +44,18 @@ class SignModel(BaseModel):
 
 # pydantic model for adding support
 class AddSupport(BaseModel):
+    SupportWork: str
     SupportType: str
     LatLng: str
-    InstallType: str
     SupportDate: str
     Cost: Optional[float]
 
 
 class SupportModel(BaseModel):
+    SupportWork: str
     SupportID: int
     SupportType: str
     LatLng: str
-    InstallType: str
     SupportDate: str
     Cost: float
 

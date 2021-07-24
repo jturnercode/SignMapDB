@@ -259,7 +259,7 @@ function addsignrow() {
     tbodyEl.innerHTML += `
     <tr>
     <td>-</td>
-    <td>${formData["InstallType"]}</td>
+    <td>${formData["SignWork"]}</td>
     <td>${formData["SignClass"]}</td>
     <td>${formData["SignCode"]}</td>
     <td>${formData["Description"]}</td>
@@ -276,8 +276,10 @@ function addsignrow() {
       element.classList.add("is-hidden");
     });
 
+    // CLEAR FORM FOR NEXT USE
     document.getElementById("addsign_form").reset();
 
+    // PLACE BACK AND SAVE BUTTONS BACK
     document.querySelector("#back_button").classList.remove("is-hidden");
     document.querySelector("#save_button").classList.remove("is-hidden");
     document.querySelector("#save_button").disabled = false;
@@ -331,7 +333,7 @@ function savedata() {
 
           signs.push({
             SupportFK: suppid,
-            InstallType: tr.cells[1].textContent,
+            SignWork: tr.cells[1].textContent,
             SignClass: tr.cells[2].textContent,
             SignCode: tr.cells[3].textContent,
             Description: tr.cells[4].textContent,
@@ -354,15 +356,41 @@ function savedata() {
 
 /**========================================================================
  **                           delTableRow()
- *?  js to delete row from signs table
+ *?  js to delete row in signs table
  *========================================================================**/
-
+// TODO: Add Confirm POPUP window, to avoid accidental deletes
 function delTableRow() {
   tbodyEl = document.getElementById("sign_tbody");
 
   tbodyEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("bi-trash")) {
       e.target.closest("tr").remove();
+    }
+  });
+}
+
+/**========================================================================
+ **                           editTableRow()
+ *?  js to edit row in signs table
+ *========================================================================**/
+
+function editTableRow() {
+  tbodyEl = document.getElementById("sign_tbody");
+
+  tbodyEl.addEventListener("click", (e) => {
+    if (e.target.classList.contains("bi-pencil")) {
+      tr = e.target.closest("tr");
+      console.log(tr.cells[2]);
+
+      // SHOW FORM AND HIDE BUTTONS
+      document.querySelectorAll(".asignform").forEach((element) => {
+        element.classList.remove("is-hidden");
+      });
+
+      document.querySelector("#back_button").classList.add("is-hidden");
+      document.querySelector("#save_button").classList.add("is-hidden");
+
+      // POPULATE FORM WITH TABLE DATA
     }
   });
 }
@@ -387,4 +415,5 @@ window.onload = function () {
   addsignrow();
   savedata();
   delTableRow();
+  editTableRow();
 };

@@ -19,8 +19,8 @@ class Support(Base):
 
     SupportID = Column(Integer, primary_key=True,
                        index=True, autoincrement=True)
-    SupportType = Column(String)
-    # TODO what format is needed by gmaps?
+    SupportWork = Column(String)
+    # TODO: LatLng format, is needed by gmaps?
     LatLng = Column(String)
     SupportDate = Column(String)
     InstallType = Column(String)
@@ -37,12 +37,12 @@ class Sign(Base):
     __tablename__ = "signs"
 
     SignID = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    SignWork = Column(String)
     SignClass = Column(String)
     SignCode = Column(String)
     Description = Column(String)
     Size = Column(String)
     SignDate = Column(String)
-    InstallType = Column(String)
     ChangeDate = Column(String)
     Cost = Column(Float)
 
