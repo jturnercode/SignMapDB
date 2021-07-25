@@ -224,6 +224,7 @@ function xsign() {
       element.classList.add("is-hidden");
     });
 
+    // RESET FORM FIELD TO NULL BEFORE CLOSING
     document.getElementById("addsign_form").reset();
 
     document.querySelector("#back_button").classList.remove("is-hidden");
@@ -347,10 +348,9 @@ function savedata() {
         axios.post("http://127.0.0.1:8000/AddSign", signs).then((res) => {
           console.log(res);
         });
+        document.getElementById("add_modal").classList.remove("is-active");
       })
       .catch((err) => console.log(err, err.response));
-
-    document.getElementById("add_modal").classList.remove("is-active");
   }); // END OF CLICK EVENT
 } // END OF SAVEDATA FUNCTION
 
@@ -380,17 +380,28 @@ function editTableRow() {
   tbodyEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("bi-pencil")) {
       tr = e.target.closest("tr");
-      console.log(tr.cells[2]);
+      // console.log(tr.cells[2].textContent);
+
+      // POPULATE FORM WITH TABLE DATA
+      document.querySelector('[name="SignWork"]').value =
+        tr.cells[1].textContent;
+      document.querySelector('[name="SignClass"]').value =
+        tr.cells[2].textContent;
+      document.querySelector('[name="SignCode"]').value =
+        tr.cells[3].textContent;
+      document.querySelector('[name="Description"]').value =
+        tr.cells[4].textContent;
+      document.querySelector('[name="Size"]').value = tr.cells[5].textContent;
+      document.querySelector('[name="SignDate"]').value =
+        tr.cells[6].textContent;
 
       // SHOW FORM AND HIDE BUTTONS
       document.querySelectorAll(".asignform").forEach((element) => {
         element.classList.remove("is-hidden");
       });
-
       document.querySelector("#back_button").classList.add("is-hidden");
       document.querySelector("#save_button").classList.add("is-hidden");
-
-      // POPULATE FORM WITH TABLE DATA
+      e.target.closest("tr").remove();
     }
   });
 }
