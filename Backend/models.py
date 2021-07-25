@@ -20,10 +20,10 @@ class Support(Base):
     SupportID = Column(Integer, primary_key=True,
                        index=True, autoincrement=True)
     SupportWork = Column(String)
+    SupportType = Column(String)
     # TODO: LatLng format, is needed by gmaps?
     LatLng = Column(String)
     SupportDate = Column(String)
-    InstallType = Column(String)
     Cost = Column(Float)
     IsActive = Column(Boolean, default=True)
 
