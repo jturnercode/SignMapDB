@@ -145,9 +145,9 @@ function showSignForm() {
 
 function tosigns() {
   // TODO: Tabs, Implement click event to trigger showSupForm or ShowsignForm func; create class for btn and tab
-  supcontrol = document.getElementById("next_button");
+  nextBtn = document.getElementById("next_button");
 
-  supcontrol.addEventListener("click", (e) => {
+  nextBtn.addEventListener("click", (e) => {
     // Validate Add Support Form
     const errors = validateForm("#addsup_form .validate");
     if (errors.length > 0) {
@@ -196,7 +196,6 @@ function tosupport() {
  *?  js for plus sign icon to un-hide add sign form elements
  *========================================================================**/
 
-//  TODO: Sign Form, more logic needed to process adding sign to sign table and hiding elements
 function plussign() {
   plus = document.getElementById("plussign");
 
@@ -215,7 +214,6 @@ function plussign() {
  *?  js for 'x' icon to hide add sign form elements
  *========================================================================**/
 
-//  TODO: Table, more logic needed to process adding sign to sign table and hiding elements
 function xsign() {
   plus = document.getElementById("xcircle");
 
@@ -312,7 +310,7 @@ function savedata() {
     // Var to hold table data
     let signs = [];
 
-    // *appends a js object (not json)
+    // TODO: Convert axios to async/await syntax for easier reading
     axios
       .post("http://127.0.0.1:8000/CreateSupport", formData)
       .then((response) => {
@@ -332,6 +330,7 @@ function savedata() {
           // *https://javascript.info/dom-navigation#dom-navigation-tables
           // console.log(tr.cells[3].textContent)
 
+          // *appends a js object (not json)
           signs.push({
             SupportFK: suppid,
             SignWork: tr.cells[1].textContent,
