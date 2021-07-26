@@ -45,7 +45,7 @@ function validateForm(cSelectors) {
 
 /**========================================================================
  **                           supportType()
- *?  Function to monitor install type selected; if existing pole, default to 2000-10-01
+ *?  Function to monitor install type (Sign Work Type) selected; if existing pole, default to 2000-10-01
  *========================================================================**/
 
 function supportType() {
@@ -184,9 +184,9 @@ function showSupForm() {
  *?  js for back button on add support form; hide and un-hide elements
  *========================================================================**/
 function tosupport() {
-  nextcontrol = document.getElementById("back_button");
+  backBtn = document.getElementById("back_button");
 
-  nextcontrol.addEventListener("click", (e) => {
+  backBtn.addEventListener("click", (e) => {
     showSupForm();
   });
 }
@@ -345,12 +345,24 @@ function savedata() {
         console.log(`SIGNS: ${JSON.stringify(signs)}`);
 
         // SECOND REQUEST TO ADD SIGNS TO DB WITH ASSOCIATED SUPPORT ID
-        axios.post("http://127.0.0.1:8000/AddSign", signs).then((res) => {
-          console.log(res);
-        });
-        document.getElementById("add_modal").classList.remove("is-active");
+        axios
+          .post("http://127.0.0.1:8000/AddSign", signs)
+          .then((res) => {
+            console.log(res);
+            // IN CASE OF NETWORK ERR, FORM RESETS HAPPEN HERE
+            document.getElementById("add_modal").classList.remove("is-active");
+            showSupForm();
+            resetSignTbl();
+          })
+          .catch((err) => {
+            console.log(err, err.response);
+            alert("Network issue(addsign), please try again");
+          });
       })
-      .catch((err) => console.log(err, err.response));
+      .catch((err) => {
+        console.log(err, err.response);
+        alert("Network issue(createsupport), please try again");
+      });
   }); // END OF CLICK EVENT
 } // END OF SAVEDATA FUNCTION
 
@@ -403,6 +415,17 @@ function editTableRow() {
       document.querySelector("#save_button").classList.add("is-hidden");
       e.target.closest("tr").remove();
     }
+  });
+}
+
+/**========================================================================
+ **                           resetSignTbl()
+ *?  js to show support form when back button or tab clicked
+ *========================================================================**/
+
+function resetSignTbl() {
+  document.querySelectorAll("#sign_tbody tr").forEach((e) => {
+    e.remove();
   });
 }
 
